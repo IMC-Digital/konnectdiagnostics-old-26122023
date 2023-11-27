@@ -19,7 +19,7 @@ const Cart = ({ userId, cart, setCart }) => {
       <Wrapper>
           <article className='container w-50 mx-auto m-5 p-0'>
             <div className='p-5 py-4 bg-light'>
-                <h2>Cart</h2>
+                <h2>Cart -</h2>
             </div>
             <div className='px-5 p-2'>
                 {cart?.map((item)=>(
