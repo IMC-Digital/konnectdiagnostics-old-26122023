@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { BsCurrencyRupee } from 'react-icons/bs';
-// import { packagesData } from "../../assets/data/AllData";
 // =======================================================
 import HealthScreen from "../../components/healthpackages/HealthScreen";
 import DiabeticPackage from "../../components/healthpackages/DiabeticPackage";
@@ -33,8 +32,6 @@ function PackageItemInfo({ item, auth, userId, cart, activeTab, handleLoginClick
 
   const handleAddToCartClick = () => {
     if (!auth) {
-      // Show an alert or a modal to sign in when auth is false
-      // alert('Please sign in to add to cart.');
       handleLoginClick();
       return;
     }
@@ -71,8 +68,6 @@ function PackageItemInfo({ item, auth, userId, cart, activeTab, handleLoginClick
 
   const updateCartItemQuantity = (newQuantity) => {
     if (!auth) {
-      // Show an alert or a modal to sign in when auth is false
-      // alert('Please sign in to update quantity.');
       handleLoginClick();
       return;
     }
@@ -94,8 +89,6 @@ function PackageItemInfo({ item, auth, userId, cart, activeTab, handleLoginClick
 
   const removeCartItem = (product_id, userId) => {
     if (!auth) {
-      // Show an alert or a modal to sign in when auth is false
-      // alert('Please sign in to remove item.');
       handleLoginClick();
       return;
     }
@@ -143,10 +136,10 @@ function PackageItemInfo({ item, auth, userId, cart, activeTab, handleLoginClick
                     <button className='plusminBtn mnsBtn' onClick={handleIncrementQuantity}>+</button>
                   </div>
                 ) : (
-                  <button className='btn btn-primary btn-sm' onClick={handleAddToCartClick}>Add to Cart</button>
+                  <button className='btn-k-secondary' onClick={handleAddToCartClick}>Add to Cart</button>
                 )
               ) : (
-                <button className='btn btn-primary btn-sm' onClick={() => handleLoginClick() }>Add to Cart</button>
+                <button className='btn-k-secondary' onClick={() => handleLoginClick() }>Add to Cart</button>
               )}
             </div>
           </div>
