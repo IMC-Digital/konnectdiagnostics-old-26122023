@@ -111,14 +111,12 @@ export const TestCard = ({ item, userId, auth, cart, handleLoginClick }) => {
             <div className="card_org_cont">
               <img src={"/images/organs/" + item.category + ".png"} className="testOrgImg" alt="" />
             </div>
-            <h5 className="tstTitle">{item.product_name}</h5>
-            <p className="tstInv"> <b> INVCODE: </b> {item.product_code} </p>
-            <div className="w-100 mb-4 more-det">
-              <p className="tstInv"> <b> Sample Type: </b> {item.sample_type} </p>
-              {/* <p className="tstInv"> Pre test preparation: <b> {item.pre_test_preparation} </b> </p> */}
-              <p className="tstInv"> <b> Test Report Delivery: </b> {item.test_report_delivery} </p>
-              <p className="tstInv"> <b> Frequency: </b> {item.frequency} </p>
-              {/* <p className="tstInv"> Home sample collection: <b> {item.home_sample_collection } </b> </p> */}
+            <h5 className="fw-bolder">{item.product_name}</h5>
+            <p className="small"> <b> INVCODE: </b> {item.product_code} </p>
+            <div className="w-100 mb-4 ">
+              <p className="mb-1 small"> <b> Sample Type: </b> {item.sample_type} </p>
+              <p className="mb-1 small"> <b> Test Report Delivery: </b> {item.test_report_delivery} </p>
+              <p className="mb-1 small"> <b> Frequency: </b> {item.frequency} </p>
             </div>
           </div>
 
@@ -132,11 +130,10 @@ export const TestCard = ({ item, userId, auth, cart, handleLoginClick }) => {
                     <button className='plusminBtn mnsBtn' onClick={handleIncrementQuantity}>+</button>
                   </div>
                 ) : (
-                  <button className='btn btn-primary btn-sm' onClick={handleAddToCartClick}>Add to Cart</button>
+                  <button className='btn btn-sm addtocartbtn text-white' onClick={handleAddToCartClick}>Add to Cart</button>
                 )
               ) : (
-                //<button className='btn btn-primary btn-sm' onClick={() => alert('Please sign in to perform this action.')}>Add to Cart</button>
-                <button className='btn btn-primary btn-sm' onClick={() => handleLoginClick()}>Add to Cart</button>
+                <button className='btn btn-sm addtocartbtn text-white' onClick={() => handleLoginClick()}>Add to Cart</button>
               )}
             </div>
             <div>
@@ -204,7 +201,7 @@ const Wrapper = styled.section`
   }
 
   .tstsCard {
-    height: 300px;
+    height: 320px;
     display: flex;
     flex-direction: column;
     transition: 0.5s;
@@ -269,6 +266,9 @@ const Wrapper = styled.section`
     font-size: 0.8rem;
     border: 1px solid rgba(0,0,0,0.1);
     justify-content: flex-end;
+  }
+  .addtocartbtn{
+    background-color: ${({ theme }) => theme.colors.secondary};
   }
   .txtcartBtn:hover {
     background-color: ${({ theme }) => theme.colors.white};

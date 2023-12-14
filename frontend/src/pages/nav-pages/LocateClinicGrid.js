@@ -1,51 +1,69 @@
 import React from 'react';
 import { styled } from "styled-components";
-import ClinicData from "../../assets/data/ClinicData";
-import { GoLocation } from 'react-icons/go'
-import { IoIosCall, IoIosMail } from 'react-icons/io'
+import { GoLocation } from "react-icons/go";
+import ImageCarousel from './LocateClinics/ImageCarousel';
+// import ImageCarousel2 from './LocateClinics/ImageCarousel2';
 
-function LocateClinicGrid({noclinics}) {
+function LocateClinicGrid({ clinicsdata, noclinics }) {
 
   return (
     <Wrapper>
       <div className="clinics container p-0 ">
-          <div className="clinic">
-            {ClinicData.slice(0, noclinics).map((item) => (
-              <div className="clinic-card">
-                <div className="clinic-image">
-                  <img src={item.areaImg} alt={item.area} />
-                  <p className="area d-flex gap-2">
-                    {item.area}
-                    <a href={item.direction} target="blanck">
-                      <GoLocation />
-                    </a>
-                  </p>
-                </div>
-                <div className="clinic-info">
-                  <div className="span-box">
-                    <span>24/7 </span>
-                  </div>
-                  <div className="top">
-                    <h3>{item.clinicTitle}</h3>
-                    <p>{item.address}</p>
-                  </div>
-                  <div className="bottom">
-                    <hr />
-                    <div className="contact">
-                      <div className="c-align phone">
-                        <IoIosCall />
-                        <p>{item.phone}</p>
-                      </div>
-                      <div className="c-align mail ">
-                        <IoIosMail />
-                        <p>{item.mail}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+        <div className="clinic">
+          {clinicsdata.slice(0, noclinics).map((item) => (
+            <div className="clinic-card d-flex">
+              <div className="clinic-image w-50">
+                <ImageCarousel clinicname={item.area} />
+                {/* <ImageCarousel2 /> */}
+                <p className="area d-flex gap-2">
+                  {item.area}
+                  <a href={item.direction} target="blank">
+                    <GoLocation />
+                  </a>
+                </p>
               </div>
-            ))}
-          </div>
+              <div className="clinic-info w-50">
+                <div className="span-box">
+                  <span> 24/7 </span>
+                </div>
+                <div className="top">
+                  <div className='d-flex'>
+                    <img src="/images/k.png" className="cardcomplogo" alt="" />
+                    <h3>{item.name}</h3>
+                  </div>
+                  <p>{item.address}</p>
+                  <div className="d-flex gap-1 mail">
+                    <img src="/images/icons/svg/location.svg" style={{width: "22px"}} alt="" />
+                    <p className='mb-0'>Pincode: <strong> {item.pincode} </strong></p>
+                  </div>
+                  <div className="d-flex gap-2 phone">
+                    <img src="/images/icons/svg/phone-call.svg" style={{width: "18px"}} alt="" />
+                    <p className='mb-0'>{item.telephone_number}</p>
+                  </div>
+                  <div className="d-flex gap-2 mail">
+                    <img src="/images/icons/svg/mail-inbox-app.svg" style={{width: "18px"}} alt="" />
+                    <p className='mb-0'>{item.email}</p>
+                  </div>
+                </div>
+                
+                {/* <div>
+                  <iframe
+                    key={item.id}
+                    src={`${item.google_map_link}`}
+                    width="100%"
+                    height="250px"
+                    style={{ border: "0" }}
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title={`Google Map for ${item.name}`}
+                  ></iframe>
+
+                </div> */}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </Wrapper>
   )
@@ -54,6 +72,10 @@ function LocateClinicGrid({noclinics}) {
 export default LocateClinicGrid;
 const Wrapper = styled.section`
 .clinics {
+  p{
+    margin-bottom: 0;
+    padding: 5px;
+  }
       margin-bottom: 3rem;
       .clinic {
         gap: 20px;
@@ -66,11 +88,11 @@ const Wrapper = styled.section`
           overflow: hidden;
           box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
           position: relative;
-          width: 32%;
+          width: 100%;
+          ${'' /* height: 500px; */}
           .area {
             position: absolute;
-            background: url(/images/k-10.png),
-              linear-gradient(360deg, #00ffbb80, #005bab);
+            background: ${({ theme }) => theme.colors.secondary};
             top: 0;
             left: 0;
             padding: 8px 28px;
@@ -105,8 +127,6 @@ const Wrapper = styled.section`
             justify-content: space-between;
             height: 280px;
             border-radius: 10px;
-            box-shadow: rgba(50, 50, 93, 0.15) 0px 10px 20px -2px,
-              rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
             background-position: left center;
             background-size: cover;
             background-color: white;
@@ -119,22 +139,21 @@ const Wrapper = styled.section`
               padding: 10px;
               display: flex;
               align-items: center;
-              top: -35px;
-              right: 15px;
+              top: 0px;
+              right: 0px;
 
               span {
                 font-size: 0.85rem;
-                font-weight: 600;
+                font-weight: 700;
                 color: ${({ theme }) => theme.colors.primary};
                 background-color: ${({ theme }) => theme.colors.white};
-                box-shadow: rgba(50, 50, 93, 0.15) 0px 10px 20px -2px,
-                  rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+                box-shadow: rgba(50, 50, 93, 0.15) 0px 10px 20px -2px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 width: 45px;
                 height: 45px;
-                border-radius: 50px;
+                border-radius: 5px;
               }
             }
 
@@ -163,4 +182,11 @@ const Wrapper = styled.section`
         }
       }
     }
+
+    .cardcomplogo{
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      z-index: 20;
+    }  
 `;

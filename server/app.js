@@ -1,9 +1,6 @@
 const express = require('express');
-// const mysql = require('mysql');
-const mysql = require('mysql2');
 const twilio = require('twilio');
 require('dotenv').config();
-const port = process.env.PORT;
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -11,24 +8,32 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const app = express();
-app.use(express.json());
+const createOtpDbConnection = require('./config/database');
+
+const port = process.env.PORT;
 const privateKey = process.env.PRIVATEKEY;
 const salt = 10;
+
+app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }));
 app.use(cors({
     origin: ["http://localhost:3000"],
     methods: ["GET", "POST"],
     credentials: true
 }));
-app.use(cookieParser());
+
 app.set('view engine', 'ejs');
-app.use(express.urlencoded({ extended: false }));
+
+// db connection
+createOtpDbConnection();
+const otpdb = createOtpDbConnection();
+
 // ----------------------------------------------
-// const accountSid = 'AC9ca547f7c708b233df42e89bfbdca249';
-// const authToken = '0236b41bf44a40e67f55095d738ac1ae';
 const accountSid = 'AC9ca547f7c708b233df42e89bfbdca249';
-const authToken = '01a007f91889dbdd2ba63c5c9f872148';
+const authToken = '999530f731e85821ec6d30b57b472d13';
 const client = twilio(accountSid, authToken);
 // ----------------------------------------------
 
@@ -46,48 +51,44 @@ const client = twilio(accountSid, authToken);
   //   database: 'userauthotp'
   // })
   // -----------------------------------------------------------
-const otpdb = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'admin123',
-  database: 'konnect_db0'
-})
-
-otpdb.connect((err) => {
-  if (err) { console.error('Error connecting to the database: ' + err.stack); return; }
-  console.log('Connected to the database as ID ' + otpdb.threadId);
-});
 
 app.get('/', (req, res) => {
-  res.send('Hello')
+  res.send('Hello');
 })
 
+// ------------------------------------------------------------
+const clinicsRoutes = require('./src/routes/clinicsroutes');
+app.use('/clinics', clinicsRoutes);
+
+
+// ------------------------------------------------------------
+
 app.get('/search', (req, res) => {
-    const searchTerm = req.query.q;
-    const query = `SELECT * FROM products WHERE product_name LIKE '%${searchTerm}%'`;
-    
-    otpdb.query(query, (error, results) => {
-      if (error) {
-        console.error(error);
-        res.status(500).json({ error: 'An error occurred' });
-      } else {
-        res.status(200).json(results);
-      }
-    });
+  const searchTerm = req.query.q;
+  const query = `SELECT * FROM products WHERE product_name LIKE '%${searchTerm}%'`;
+  
+  otpdb.query(query, (error, results) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred' });
+    } else {
+      res.status(200).json(results);
+    }
   });
+});
 
 app.get('/getbyletter', (req, res) => {
-    const startingLetter = req.query.l;
-    const query = `SELECT * FROM products WHERE product_name LIKE '${startingLetter}%'`;
-    otpdb.query(query, (error, results) => {
-      if (error) {
-        console.error(error);
-        res.status(500).json({ error: 'An error occurred' });
-      } else {
-        res.status(200).json(results);
-      }
-    });
+  const startingLetter = req.query.l;
+  const query = `SELECT * FROM products WHERE product_name LIKE '${startingLetter}%'`;
+  otpdb.query(query, (error, results) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred' });
+    } else {
+      res.status(200).json(results);
+    }
   });
+});
 
 
 app.get('/orgsel', (req, res) => {
@@ -386,6 +387,7 @@ app.post('/profile/:userId', (req, res) => {
     return res.json({ profileAdded: true });
   });
 });
+
 app.post('/updateprofile/:userId', (req, res) => {
   const userId = req.params.userId;
   const profileData = req.body;

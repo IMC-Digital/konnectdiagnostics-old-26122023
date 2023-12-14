@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 
 function PackageItem({ item, auth, userId, cart, handleLoginClick }) {
-    const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(0);
   const [showQuantityController, setShowQuantityController] = useState(false);
 
   useEffect(() => {
@@ -17,8 +17,6 @@ function PackageItem({ item, auth, userId, cart, handleLoginClick }) {
 
   const handleAddToCartClick = () => {
     if (!auth) {
-      // Show an alert or a modal to sign in when auth is false
-      // alert('Please sign in to add to cart.');
       handleLoginClick();
       return;
     }
@@ -55,8 +53,6 @@ function PackageItem({ item, auth, userId, cart, handleLoginClick }) {
 
   const updateCartItemQuantity = (newQuantity) => {
     if (!auth) {
-      // Show an alert or a modal to sign in when auth is false
-      // alert('Please sign in to update quantity.');
       handleLoginClick();
       return;
     }
@@ -78,8 +74,6 @@ function PackageItem({ item, auth, userId, cart, handleLoginClick }) {
 
   const removeCartItem = (product_id, userId) => {
     if (!auth) {
-      // Show an alert or a modal to sign in when auth is false
-      // alert('Please sign in to remove item.');
       handleLoginClick();
       return;
     }
@@ -98,18 +92,27 @@ function PackageItem({ item, auth, userId, cart, handleLoginClick }) {
         console.error('Error removing item:', error);
       });
   };
-    
-    return (
-      <div key={item.product_id} className='package-card bg-white shadow-sm rounded m-2'>
-        <img src="/images/k.png" className="cardcomplogo" alt="" />
-        <img src={"/images/health-packages/" + item.product_name.toLowerCase().replace(/\s+/g, '-') + ".jpg"} className="testOrgImg" alt="" />
-        <div className='p-3'>
-          <div className='mb-5'>
-            <h6 className="packagename"> {item.product_name} </h6>
-            <span className="packagecode small"> <strong> Package Code: </strong> {item.product_code} </span>
-          </div>
-          <div className="ftr-sec bg-light px-3 py-2 w-100 d-flex justify-content-between border-top tcardfooter">
-            <div>
+
+
+  const QuantityController = ({ quantity, onDecrement, onIncrement }) => (
+    <div className='qntCntWrp'>
+      <button className='plusminBtn plsBtn' onClick={onDecrement}>-</button>
+      <span className='quantDisp'>{quantity}</span>
+      <button className='plusminBtn mnsBtn' onClick={onIncrement}>+</button>
+    </div>
+  );
+
+  return (
+    <div key={item.product_id} className='package-card bg-white shadow-sm rounded m-2'>
+      <img src="/images/k.png" className="cardcomplogo" alt="" />
+      <img src={"/images/health-packages/" + item.product_name.toLowerCase().replace(/\s+/g, '-') + ".jpg"} className="testOrgImg" alt="" />
+      <div className='p-3'>
+        <div className='mb-5'>
+          <h6 className="packagename"> {item.product_name} </h6>
+          <span className="packagecode small"> <strong> Package Code: </strong> {item.product_code} </span>
+        </div>
+        <div className="ftr-sec bg-light px-3 py-2 w-100 d-flex justify-content-between border-top tcardfooter">
+          {/* <div>
               {auth ? (
                 showQuantityController ? (
                   <div className='qntCntWrp'>
@@ -123,14 +126,30 @@ function PackageItem({ item, auth, userId, cart, handleLoginClick }) {
               ) : (
                 <button className='btn btn-primary btn-sm' onClick={() => handleLoginClick() }>Add to Cart</button>
               )}
-            </div>
-            <div>
-              <h4 className="price mb-0 fw-bolder"> <small>Rs: </small> {item.price} </h4>
-            </div>
+            </div> */}
+          <div>
+            {auth ? (
+              showQuantityController ? (
+                <QuantityController
+                  quantity={quantity}
+                  onDecrement={handleDecrementQuantity}
+                  onIncrement={handleIncrementQuantity}
+                />
+              ) : (
+                <button className='btn btn-primary btn-sm' onClick={handleAddToCartClick}>Add to Cart</button>
+              )
+            ) : (
+              <button className='btn btn-primary btn-sm' onClick={handleLoginClick}>Add to Cart</button>
+            )}
+          </div>
+
+          <div>
+            <h4 className="price mb-0 fw-bolder"> <small>Rs: </small> {item.price} </h4>
           </div>
         </div>
       </div>
-    )
+    </div>
+  )
 }
 
 export default PackageItem

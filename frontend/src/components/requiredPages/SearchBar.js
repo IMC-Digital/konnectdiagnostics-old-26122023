@@ -18,10 +18,9 @@ function SearchBar({ setSearchResults }) {
 
   const handleSearch = async () => {
     try {
-      // const response = await axios.get(`http://localhost:3210/search?q=${searchTerm}`);
       const response = await axios.get(`http://localhost:3210/search?q=${searchTerm}`);
       setSearchResults(response.data);
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.error(error);
     }
