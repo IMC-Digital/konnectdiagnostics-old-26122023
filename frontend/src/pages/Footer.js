@@ -11,114 +11,149 @@ const Footer = () => {
           <div className="fh container d-flex justify-content-between">
             <div className="fh-content d-flex ">
               <p className="fh-p">Follow Konnect Diagnostics on Social Media</p>
-              <NavLink to="https://www.facebook.com/konnectdiagnostic/" target="blank">
-                <i className="fa-brands fa-square-facebook fa-xl" style={{color: "#ffffff"}}></i>
+              <NavLink
+                to="https://www.facebook.com/konnectdiagnostic/"
+                target="blank"
+              >
+                <i
+                  className="fa-brands fa-square-facebook fa-xl"
+                  style={{ color: "#ffffff" }}
+                ></i>
               </NavLink>
               <NavLink to="https://twitter.com/KonnectDiagnos2" target="blank">
-                <i className="fa-brands fa-square-twitter fa-xl" style={{color: "#ffffff"}}></i>
+                <i
+                  className="fa-brands fa-square-twitter fa-xl"
+                  style={{ color: "#ffffff" }}
+                ></i>
               </NavLink>
-              <NavLink to="https://www.instagram.com/konnectdiagnosticcenters/" target="blank">
-                <i className="fa-brands fa-square-instagram fa-xl" style={{color: "#ffffff"}}></i>
+              <NavLink
+                to="https://www.instagram.com/konnectdiagnosticcenters/"
+                target="blank"
+              >
+                <i
+                  className="fa-brands fa-square-instagram fa-xl"
+                  style={{ color: "#ffffff" }}
+                ></i>
               </NavLink>
-              <NavLink to="https://www.youtube.com/channel/UC2y2Nq4LXo36lU3kkZvx9xA" target="blank">
-                <i className="fa-brands fa-linkedin fa-xl" style={{color: "#ffffff"}}></i>
+              <NavLink
+                to="https://www.youtube.com/channel/UC2y2Nq4LXo36lU3kkZvx9xA"
+                target="blank"
+              >
+                <i
+                  className="fa-brands fa-linkedin fa-xl"
+                  style={{ color: "#ffffff" }}
+                ></i>
               </NavLink>
-              <NavLink to="https://www.youtube.com/channel/UC2y2Nq4LXo36lU3kkZvx9xA" target="blank">
-                <i className="fa-brands fa-square-youtube fa-xl" style={{color: "#ffffff"}}></i>
+              <NavLink
+                to="https://www.youtube.com/channel/UC2y2Nq4LXo36lU3kkZvx9xA"
+                target="blank"
+              >
+                <i
+                  className="fa-brands fa-square-youtube fa-xl"
+                  style={{ color: "#ffffff" }}
+                ></i>
               </NavLink>
             </div>
-            <div className="fh-content d-flex"></div>
+            {/* <div className="fh-content d-flex"></div> */}
           </div>
         </div>
         <div className="footer-container container d-flex">
-          <div className="d-flex border-bottom pb-5">
-            <div className="w-25">
-              <img className="img-fluid" src="/images/konnect-logo.png" alt="logofooter" />
-              <p className=""> <i> Konnect Diagnostics offers precise diagnostics with certified radiologists, pathologists, doctors, and technicians. </i> </p>
+          <div className="ftrMiddle d-flex border-bottom pb-5">
+            <div className="fb-left">
+              <img
+                className="img-fluid"
+                src="/images/konnect-logo.png"
+                alt="logofooter"
+              />
+              <p className="">
+                <i>
+                  Konnect Diagnostics offers precise diagnostics with certified
+                  radiologists, pathologists, doctors, and technicians.
+                </i>
+              </p>
             </div>
-            <div className="d-flex w-75 ms-5 px-5">
-            <div className="footer-box1 w-25">
-            <ul className="navbar-nav footer-navbar-lists  d-flex">
-              <li>
-                <NavLink to="/" className="nav-list">
-                  Home
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/about" className="nav-list">
-                  About
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/packages" className="nav-list">
-                  Packages
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/tests" className="nav-list">
-                  Tests
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-          <div className="footer-box2 w-25">
-            <ul className="navbar-nav footer-navbar-lists  d-flex">
-              <li>
-                <NavLink to="/tests" className="nav-list">
-                  Book a Test
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/locate-clinic" className="nav-list">
-                  Nearest Center
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/login" className="nav-list">
-                  Download Report
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-          <div className="footer-box3 w-25">
-            <ul className="navbar-nav footer-navbar-lists  d-flex">
-              <li>
-                <NavLink to="/health-conditions" className="nav-list">
-                  Health Conditions
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/radiology-services" className="nav-list">
-                  Radiology Services
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/fetal-medicine-unit" className="nav-list">
-                  Fetal Medicine Unit
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-          <div className="footer-box4 w-25">
-            <ul className="navbar-nav footer-navbar-lists  d-flex">
-              <li>
-                <NavLink to="/partner-with-us" className="nav-list">
-                  Partner with us
-                </NavLink>
-              </li>
+            <div className="fb-right d-flex">
+              <div className="footer-box1 w-25">
+                <ul className="navbar-nav footer-navbar-lists  d-flex">
+                  <li>
+                    <NavLink to="/" className="nav-list">
+                      Home
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/about" className="nav-list">
+                      About
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/packages" className="nav-list">
+                      Packages
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/tests" className="nav-list">
+                      Tests
+                    </NavLink>
+                  </li>
+                </ul>
+              </div>
+              <div className="footer-box2 w-25">
+                <ul className="navbar-nav footer-navbar-lists  d-flex">
+                  <li>
+                    <NavLink to="/tests" className="nav-list">
+                      Book a Test
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/locate-clinic" className="nav-list">
+                      Nearest Center
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/login" className="nav-list">
+                      Download Report
+                    </NavLink>
+                  </li>
+                </ul>
+              </div>
+              <div className="footer-box3 w-25">
+                <ul className="navbar-nav footer-navbar-lists  d-flex">
+                  <li>
+                    <NavLink to="/health-conditions" className="nav-list">
+                      Health Conditions
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/radiology-services" className="nav-list">
+                      Radiology Services
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/fetal-medicine-unit" className="nav-list">
+                      Fetal Medicine Unit
+                    </NavLink>
+                  </li>
+                </ul>
+              </div>
+              <div className="footer-box4 w-25">
+                <ul className="navbar-nav footer-navbar-lists  d-flex">
+                  <li>
+                    <NavLink to="/partner-with-us" className="nav-list">
+                      Partner with us
+                    </NavLink>
+                  </li>
 
-              {/* <li>
+                  {/* <li>
                 <NavLink to="/contact-us" className="nav-list">
                   Contact Us
                 </NavLink>
               </li> */}
-            </ul>
-          </div>
+                </ul>
+              </div>
             </div>
-            
           </div>
         </div>
-        <div className="footer-bottom container content-box">
+        <div className="fb-b footer-bottom container content-box">
           <p className="styled">
             © 2023 Konnect Diagnostics All rights reserved
           </p>
@@ -142,7 +177,7 @@ const Wrapper = styled.section`
       scale: 1.2;
     }
   }
-  ${'' /* background-color: ${({ theme }) => theme.colors.primary}; */}
+  ${"" /* background-color: ${({ theme }) => theme.colors.primary}; */}
   background-color: rgba(0,0,0,0.05);
   .footer-head {
     background-color: ${({ theme }) => theme.colors.primary};
@@ -201,10 +236,41 @@ const Wrapper = styled.section`
       font-weight: 300;
       display: inline-block;
       margin-bottom: 10px;
-      ${'' /* color: #fff; */}
+      ${"" /* color: #fff; */}
     }
     .tc {
       text-decoration: none;
+    }
+  }
+  .fb-left {
+    width: 25%;
+  }
+  .fb-right {
+    width: 75%;
+    margin-left: 100px;
+  }
+  @media only screen and (max-width: 600px) {
+    .ftrMiddle {
+      flex-wrap: wrap;
+      .fb-left {
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        margin-right: 0;
+      }
+      .fb-right {
+        margin: 20px;
+        width: 100%;
+        /* margin: 0; */
+      }
+      .nav-list {
+        font-size: 14px;
+        line-height: 1.5em;
+        font-weight: 400;
+      }
+      .fb-b {
+        border: 2px solid red;
+      }
     }
   }
 `;
