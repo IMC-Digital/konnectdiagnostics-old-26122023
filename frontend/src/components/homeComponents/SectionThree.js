@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import DynamicImage from "../requiredPages/DynamicImage";
+import '../../App.css';
 
 const SectionThree = () => {
   return (
@@ -41,9 +42,9 @@ const SectionThree = () => {
           </div>
         </div>
       </div>
-      <div className="secThree container d-flex">
-        <div className="why-konnect-img">
-          <div className="why-konnect-content">
+      <div className="secThree row container d-flex mx-auto px-0">
+        <div className="why-konnect-img col-md-6 bg-k-primary">
+          <div className="why-konnect-content bg-k-secondary">
             <div className="title">
               <h3>Why Konnect</h3>
             </div>
@@ -53,23 +54,23 @@ const SectionThree = () => {
           </div>
         </div>
 
-        <div className="secThree-info d-sm-flex">
-          <div className="sti secThree-info-one d-flex">
-            <div className="image">
+        <div className="col-md-6">
+          <div className="icon-box">
+            <div className="icon">
               <img src="/images/icons/home/certified.svg" alt="certifiedIcon" />
             </div>
             <p> Konnect Diagnostics offers precise diagnostics with certified radiologists, pathologists, doctors, and technicians. </p>
           </div>
           <hr />
-          <div className="sti secThree-info-two d-flex">
-            <div className="image"> 
+          <div className="icon-box">
+            <div className="icon"> 
               <img src="/images/icons/home/team.svg" alt="teamIcon" /> 
             </div>
             <p> Pioneering tech, skilled team drive us in advanced diagnostics, managing complex cases with expertise. </p>
           </div>
           <hr />
-          <div className="sti secThree-info-two d-flex">
-            <div className="image"> 
+          <div className="icon-box">
+            <div className="icon"> 
               <img src="/images/icons/home/top.svg" alt="topIcon" />
             </div>
             <p> Our priority: satisfied patients. Swift, transparent, precise top-quality services for convenience and rapid results. </p>
@@ -83,16 +84,31 @@ const SectionThree = () => {
 export default SectionThree;
 
 const Wrapper = styled.section`
+  .icon-box{
+    display: flex;
+    .icon{
+      width: 100px;
+      height: 100px;
+      border-radius: 50px;
+      padding: 10px;
+      background-color: #fff;
+      box-shadow: rgba(149, 157, 165, 0.3) 0px 8px 24px;
+      img{
+        width: 50px;
+      }
+    }
+  }
+
   .why-konnect-img {
     position: relative;
+    background-image: url("/images/s3-img-left.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     .why-konnect-content {
       position: absolute;
       padding: 25px;
       border-radius: 15px;
-      background-image: url(/images/k-10.png),
-        linear-gradient(90deg, #00ffbb, #005bab95);
-      background-size: contain;
-      background-repeat: no-repeat;
       left: 5%;
       bottom: 5%;
       color: white;
@@ -121,33 +137,12 @@ const Wrapper = styled.section`
   }
   .secThree {
     margin-top: -12rem;
-    .why-konnect-img{
-      background-image: url("/images/s3-img-left.jpg");
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
-      width: 60%;
-    }
   }
   .secThree-info {
     .sti {
       align-items: center;
-      .image {
-        width: 50px;
-        height: 50px;
-        border-radius: 50px;
-        width: 7rem;
-        height: auto;
-        padding: 15px;
-        background-color: #fff;
-        box-shadow: rgba(149, 157, 165, 0.3) 0px 8px 24px;
-      }
       img {
         width: 100%;
-      }
-      p {
-        font-size: 1rem;
-        font-weight: 600;
       }
     }
   }

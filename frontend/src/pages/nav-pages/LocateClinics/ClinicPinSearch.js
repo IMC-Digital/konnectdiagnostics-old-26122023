@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ClinicPinSearch({ handlePincodeSearch, pinSearchTerm, setPinSearchTerm }) {
+function ClinicPinSearch({ handlePinCodeSearch, pinSearchTerm, setPinSearchTerm }) {
 
   const searchInpStyle = {
     borderRadius: "5px 0 0 5px",
@@ -19,7 +19,7 @@ function ClinicPinSearch({ handlePincodeSearch, pinSearchTerm, setPinSearchTerm 
             type="button" 
             className="btn btn-primary btn-sm text-white searchBtnStyle" 
             style={{ borderRadius: "0 5px 5px 0" }} 
-            onClick={handlePincodeSearch}>
+            onClick={handlePinCodeSearch}>
               <i className="fas fa-search text-white"></i>
           </button>
         </div>
