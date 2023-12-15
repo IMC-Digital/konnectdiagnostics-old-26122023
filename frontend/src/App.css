@@ -4,7 +4,7 @@
 :root {
   --primary-color: #005BAB;
   --secondary-color: #00aeef;
-  --text-color: #00203c;
+  --text-color: #303030;
 }
 
 * {
@@ -72,6 +72,18 @@ p{
 }
 .cursor-pointer:hover{cursor: pointer;}
 .hover-bg-danger:hover{background-color: rgb(218, 0, 0)(218, 0, 0);}
+.bg-k-primary{background-color: var(--primary-color);}
+.bg-k-secondary{background-color: var(--secondary-color);}
+
+p{
+  font-size: 16px;
+  color: var(--text-color);
+  font-weight: 400;
+  line-height: 26px;
+}
+
+
+
 
 
 /* ------------------------------------ Section three ------------------------------------------ */

@@ -23,29 +23,20 @@ const LocateClinic = () => {
       console.error('Error fetching tests:', error);
     });
   }, []);
-  
 
-  const handlePincodeSearch = async () => {
+  const handlePinCodeSearch = async () => {
     try {
-      const response = await axios.get(`http://localhost:3210/clinics/pinsearch?q=${pinSearchTerm}`);
-      if (response.data.exactPincodeResults) {
-        setClinicsdata(response.data.exactPincodeResults);
-        setshowNoExctPin(false);
-        let sessionpincodes = sessionStorage.getItem("enteredpincodes");
-        if(!sessionpincodes){
-          sessionStorage.setItem("enteredpincodes", pinSearchTerm);
+        const response = await axios.get(`http://localhost:3210/clinics/pinsearch?q=${pinSearchTerm}`);
+
+        if(response.data.nearestCenters){
+          setshowNoExctPin(true);
+          setClinicsdata(response.data.nearestCenters);
         } else {
-          if (!sessionpincodes.includes(pinSearchTerm)) {
-            let sessionpincodes = sessionStorage.getItem("enteredpincodes");
-            sessionpincodes = sessionpincodes + " " + pinSearchTerm;
-            sessionStorage.setItem("enteredpincodes", [sessionpincodes]);
-          }
+          setshowNoExctPin(false);
+          setClinicsdata(response.data.clinicsData);
         }
-      } else {
-        setshowNoExctPin(true);
-      }
     } catch (error) {
-      console.error(error);
+        console.log(error);
     }
   };
 
@@ -75,7 +66,7 @@ const LocateClinic = () => {
               setClinicsdata={setClinicsdata}   
             />
             <ClinicPinSearch 
-              handlePincodeSearch={handlePincodeSearch} 
+              handlePinCodeSearch={handlePinCodeSearch} 
               pinSearchTerm={pinSearchTerm} 
               setPinSearchTerm={setPinSearchTerm}
             />
