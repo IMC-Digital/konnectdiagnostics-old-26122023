@@ -7,16 +7,16 @@ const Packages = ({ auth, userId, cart, handleLoginClick }) => {
   const [packages, setPackages] = useState([]);
   const [activeTab, setActiveTab] = useState();
   useEffect(() => {
-      async function getallpackagesdata() {
-          try {
-              const response = await axios.get(`http://localhost:3210/getpackages`);
-              setPackages(response.data);
-              setActiveTab(response.data[0].product_id)
-          } catch (error) {
-              console.error(error);
-          }
-      } 
-      getallpackagesdata();
+    async function getallpackagesdata() {
+      try {
+        const response = await axios.get(`http://localhost:3210/getpackages`);
+        setPackages(response.data);
+        setActiveTab(response.data[0].product_id);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getallpackagesdata();
   }, []);
 
   return (
@@ -25,14 +25,26 @@ const Packages = ({ auth, userId, cart, handleLoginClick }) => {
         <div className="pkg-tabs mt-4">
           <div className="tabs" style={{ width: "25%" }}>
             {packages.map((item) => (
-              <button key={item.product_id} className={item.product_id === activeTab ? "active" : ""} onClick={() => setActiveTab(item.product_id)}>
+              <button
+                key={item.product_id}
+                className={item.product_id === activeTab ? "active" : ""}
+                onClick={() => setActiveTab(item.product_id)}
+              >
                 {item.product_name}
               </button>
             ))}
           </div>
           <div className="tab-content" style={{ width: "75%" }}>
             {packages.map((item) => (
-              <PackageItemInfo key={item.product_id_id} item={item} auth={auth} userId={userId} cart={cart} activeTab={activeTab} handleLoginClick={handleLoginClick} />
+              <PackageItemInfo
+                key={item.product_id_id}
+                item={item}
+                auth={auth}
+                userId={userId}
+                cart={cart}
+                activeTab={activeTab}
+                handleLoginClick={handleLoginClick}
+              />
             ))}
           </div>
         </div>
@@ -46,7 +58,7 @@ export default Packages;
 const Wrapper = styled.section`
   .pkg-tabs {
     display: flex;
-    gap: 25px;
+    gap: 20px;
     .tabs {
       display: flex;
       flex-direction: column;
@@ -60,16 +72,16 @@ const Wrapper = styled.section`
         text-align: start;
         &:hover {
           background-image: url(/images/k-10.png),
-            linear-gradient(220deg, #005bab, #00ffbb90);
+            linear-gradient(220deg, #005bab, #00aeef);
         }
       }
       button.active {
         background-image: url(/images/k-10.png),
-          linear-gradient(220deg, #005bab, #00ffbb90);
-        color: white;
+          linear-gradient(220deg, #005bab, #00aeef);
+        color: ${({ theme }) => theme.colors.white};
         &:hover {
           background-image: url(/images/k-10.png),
-            linear-gradient(220deg, #005bab, #00ffbb90);
+            linear-gradient(220deg, #005bab, #00aeef);
         }
       }
     }
@@ -78,6 +90,7 @@ const Wrapper = styled.section`
         border: none;
         background-image: url(/images/k-10.png),
           linear-gradient(220deg, #005bab, #00ffbb90);
+        background: ${({ theme }) => theme.colors.white};
         color: ${({ theme }) => theme.colors.white};
         font-size: 1rem;
         font-weight: 500;
@@ -93,14 +106,14 @@ const Wrapper = styled.section`
     }
   }
   .tab-bg {
-    align-items: center;
-    text-align: center;
-    background-image: url(/images/k-10.png),
-      linear-gradient(220deg, #005bab, #00ffbb90);
-    border-radius: 15px;
-    height: 200px;
-    z-index: 0;
-    margin-bottom: -155px;
+    /* align-items: center; */
+    /* text-align: center; */
+    /* background-image: url(/images/k-10.png); */
+    /* linear-gradient(220deg, #005bab, #00ffbb90); */
+    /* border-radius: 15px; */
+    /* height: 200px; */
+    /* z-index: 0; */
+    /* margin-bottom: 155px; */
   }
   .pkg-active-bg-top {
     justify-content: center;

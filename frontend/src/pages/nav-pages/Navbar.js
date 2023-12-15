@@ -25,9 +25,20 @@ const Navbar = ({ cartSize }) => {
             </button>
           </div>
 
-          <ul className={`navbar-lists navbar-nav ${isMobileMenuOpen ? "mobile-menu-open" : ""}`}>
+          <ul
+            className={`navbar-lists navbar-nav ${
+              isMobileMenuOpen ? "mobile-menu-open" : ""
+            }`}
+          >
             <li>
-              <NavLink to="/tests" className="nav-list" onClick={() => setIsMobileMenuOpen(false)} data-bs-toggle="tooltip" title="All the Tests are listed here!">
+              <NavLink
+                to="/tests"
+                className="nav-list"
+                activeClassName="active"
+                onClick={() => setIsMobileMenuOpen(false)}
+                data-bs-toggle="tooltip"
+                // title="All the Tests are listed here!"
+              >
                 Tests
               </NavLink>
             </li>
@@ -42,45 +53,77 @@ const Navbar = ({ cartSize }) => {
                   </NavLink>
                 </li> */}
                 <li className="subMenuItem">
-                  <NavLink to="/radiology-services" className="sub-nav-list">
+                  <NavLink
+                    to="/radiology-services"
+                    className="sub-nav-list"
+                    activeClassName="active"
+                  >
                     Radiology Services
                   </NavLink>
                 </li>
                 <li className="subMenuItem">
-                  <NavLink to="/fetal-medicine-unit" className="sub-nav-list">
+                  <NavLink
+                    to="/fetal-medicine-unit"
+                    className="sub-nav-list"
+                    activeClassName="active"
+                  >
                     Fetal Medicine Unit
                   </NavLink>
                 </li>
               </ul>
             </li>
-            
+
             <li>
-              <NavLink to="/health-conditions" className="nav-list">
+              <NavLink
+                to="/health-conditions"
+                className="nav-list"
+                activeClassName="active"
+              >
                 Health Conditions
               </NavLink>
             </li>
             <li>
-              <NavLink to="/packages" className="nav-list">
+              <NavLink
+                to="/packages"
+                className="nav-list"
+                activeClassName="active"
+              >
                 Packages
               </NavLink>
             </li>
             <li>
-              <NavLink to="/nearest-centers" className="nav-list">
+              <NavLink
+                to="/nearest-centers"
+                className="nav-list"
+                activeClassName="active"
+              >
                 Nearest Centers
               </NavLink>
             </li>
             <li>
-              <NavLink to="/about" className="nav-list">
+              <NavLink
+                to="/about"
+                className="nav-list"
+                activeClassName="active"
+              >
                 About Us
               </NavLink>
             </li>
             <li>
-              <NavLink to="/partner-with-us" className="nav-list">
+              <NavLink
+                to="/partner-with-us"
+                className="nav-list"
+                activeClassName="active"
+              >
                 Partner With Us
               </NavLink>
             </li>
             <li>
-              <NavLink to="/contact-us" className="nav-list">
+              <NavLink
+                to="/contact-us"
+                className="nav-list"
+                activeClassName="active"
+              >
                 Contact Us
               </NavLink>
             </li>
@@ -95,31 +138,31 @@ export default Navbar;
 
 const Wrapper = styled.section`
   navbar {
-   background-color: #fff;
- }
- .container {
-   padding: 10px 20px;
- }
- .navbar-lists {
-   list-style: none;
-   display: flex;
-   align-items: center;
-   margin: 0;
-   padding: 0;
- }
- .nav-list {
-   color: black;
-   font-weight: 700;
-   font-size: 16px;
-   text-decoration: none;
-   padding: 10px 10px;
-   transition: color 0.3s ease;
- }
+    background-color: #fff;
+  }
+  .container {
+    padding: 10px 20px;
+  }
+  .navbar-lists {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-list {
+    color: black;
+    font-weight: 6~00;
+    font-size: 16px;
+    text-decoration: none;
+    padding: 10px 10px;
+    transition: color 0.3s ease;
+  }
 
- /* Hover effect for navigation items */
- .nav-list:hover {
-   color: ${({ theme }) => theme.colors.primary};
- }
+  /* Hover effect for navigation items */
+  .nav-list:hover {
+    color: ${({ theme }) => theme.colors.primary};
+  }
 
   /* Style for the hamburger menu button */
   .navbar-toggle {
@@ -139,74 +182,72 @@ const Wrapper = styled.section`
   }
 
   .navbar-toggle {
-  display: none;
-}
+    display: none;
+  }
 
-/* Display the regular navigation list for larger screens */
-.navbar-lists {
-  flex-direction: row;
-  justify-content: flex-start;
-}
+  /* Display the regular navigation list for larger screens */
+  .navbar-lists {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
 
-/* Reset styles for the mobile menu on larger screens */
-.mobile-menu-open {
-  display: none;
-}
+  /* Reset styles for the mobile menu on larger screens */
+  .mobile-menu-open {
+    display: none;
+  }
 
-/* Reset styles for the mobile menu button on larger screens */
-.active .icon-bar {
-  opacity: 1;
-  transform: none;
-  top: 0;
-}
+  /* Reset styles for the mobile menu button on larger screens */
+  .active .icon-bar {
+    opacity: 1;
+    transform: none;
+    top: 0;
+  }
 
-/* Reset styles for submenu on larger screens */
-.subMenu {
-  position: absolute;
-  display: none;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+  /* Reset styles for submenu on larger screens */
+  .subMenu {
+    position: absolute;
+    display: none;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
 
-/* Reset styles for submenu items on larger screens */
-.sub-nav-list {
-  padding: 10px 15px;
-}
+  /* Reset styles for submenu items on larger screens */
+  .sub-nav-list {
+    padding: 10px 15px;
+  }
 
-/* Display submenu on parent item hover for larger screens */
-.services:hover .subMenu {
-  display: block;
-}
- /* Style for submenu items */
- .subMenu {
-   list-style: none;
-   margin: 0;
-   padding: 0;
-   position: absolute;
-   display: none; /* Hide submenu by default */
-   background-color: #fff;
-   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
- }
- .subMenuItem {
-   position: relative;
- }
- .sub-nav-list {
-   display: block;
-   color: #333;
-   text-decoration: none;
-   padding: 10px 15px;
-   transition: background-color 0.3s ease;
- }
- /* Hover effect for submenu items */
- .sub-nav-list:hover {
-   background-color: #f2f2f2; /* Change background color on hover */
- }
- /* Show submenu on parent item hover */
- .services:hover .subMenu {
-   display: block;
- }
-
-
+  /* Display submenu on parent item hover for larger screens */
+  .services:hover .subMenu {
+    display: block;
+  }
+  /* Style for submenu items */
+  .subMenu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    display: none; /* Hide submenu by default */
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .subMenuItem {
+    position: relative;
+  }
+  .sub-nav-list {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease;
+  }
+  /* Hover effect for submenu items */
+  .sub-nav-list:hover {
+    background-color: #f2f2f2; /* Change background color on hover */
+  }
+  /* Show submenu on parent item hover */
+  .services:hover .subMenu {
+    display: block;
+  }
 
   /* Mobile menu styles */
   @media (max-width: 768px) {
