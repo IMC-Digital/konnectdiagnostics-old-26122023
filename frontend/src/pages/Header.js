@@ -5,8 +5,10 @@ import { NavLink } from "react-router-dom";
 import { User } from "./nav-pages/User";
 import { BiSolidLogInCircle } from "react-icons/bi";
 import CartIcon from "../components/cart/CartIcon";
+import MiniCart from "../components/cart/MiniCart";
+import Dropdown from 'react-bootstrap/Dropdown';
 
-const Header = ({ cartCount, auth, setAuth, userId, setUserId, userName, setUserName, cartId, setCartId, message, handleLoginClick, handleLogout }) => {
+const Header = ({ cart, setCart, auth, setAuth, userId, setUserId, userName, setUserName, cartId, setCartId, message, setShowOtpPopup2, handleLogout }) => {
   return (
     <Wrapper>
       <div className="header">
@@ -22,18 +24,39 @@ const Header = ({ cartCount, auth, setAuth, userId, setUserId, userName, setUser
                 <Navbar />
               </div>
               <div className="login d-flex align-items-center justify-content-end">
+              
                 <div className="d-flex align-items-center justify-content-center">
-                  {!auth ? <button className='butn btn-outline-primary btn-sm' onClick={handleLoginClick}>
-                              Login <BiSolidLogInCircle className="icon" />
-                            </button> :
-                            <User auth={auth}  setAuth={setAuth}  userId={userId}  setUserId={setUserId}  userName={userName}  setUserName={setUserName}  setCartId={setCartId}  message={message}  handleLoginClick={handleLoginClick} handleLogout={handleLogout} />
+                  {/* {!auth ?
+                    <button className='butn btn-outline-primary btn-sm' onClick={handleLoginClick}>
+                      Login <BiSolidLogInCircle className="icon" />
+                    </button> :
+                    <User auth={auth} setAuth={setAuth} userId={userId} setUserId={setUserId} userName={userName} setUserName={setUserName} setCartId={setCartId} message={message} handleLoginClick={handleLoginClick} handleLogout={handleLogout} />
+                  } */}
+                  {!auth ?
+                    <Button variant="primary" onClick={() => setShowOtpPopup2(true)}>
+                      Login <BiSolidLogInCircle className="icon" />
+                    </Button> :
+                    <User auth={auth} setAuth={setAuth} userId={userId} setUserId={setUserId} userName={userName} setUserName={setUserName} setCartId={setCartId} message={message} handleLoginClick={handleLoginClick} handleLogout={handleLogout} />
                   }
-
                 </div>
+
                 <div className="cart-icon">
-                  <NavLink to="/cart">
-                    <CartIcon size={cartCount} />
+                  {/* <NavLink to="/cart">
+                    <CartIcon cart={cart} />
                   </NavLink>
+                  <MiniCart cart={cart} setCart={setCart} /> */}
+                  <Dropdown>
+                    <Dropdown.Toggle variant="" id="dropdown-basic" className="p-0">
+                      <CartIcon cart={cart} />
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      {/* <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                      <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                      <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
+                      <MiniCart cart={cart} setCart={setCart} />
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </div>
               </div>
             </div>
@@ -123,14 +146,9 @@ const Wrapper = styled.section`
     }
   }
   @media (max-width: 768px) {
-    .top-nav{
-      ${'' /* display: flex; */}
-    }
     .logo{
       width: 200px;
     }
-    .menu{
-      ${'' /* width: 400px; */}
-    }
+    
   }
 `;

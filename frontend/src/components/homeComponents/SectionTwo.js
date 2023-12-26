@@ -6,7 +6,7 @@ import ToggleKHP from "../functionalComponents/ToggleKHP";
 import ToggleKLT from "../functionalComponents/ToggleKLT";
 import ToggleKL from "../functionalComponents/ToggleKL";
 
-const SectionTwo = ({ userId, auth, cart, setCart, handleLoginClick }) => {
+const SectionTwo = ({ localCartItems, setLocalCartItems, userId, auth, cart, setCart, handleLoginClick }) => {
   const [activeComponent, setActiveComponent] = useState("ToggleKT");
 
   const handleButtonClick = (componentName) => {
@@ -18,12 +18,7 @@ const SectionTwo = ({ userId, auth, cart, setCart, handleLoginClick }) => {
       <div className="s2 mx-auto">
         <div className="s2-tests-container container">
           <div className="k-btns d-flex justify-content-sm-center">
-            <button
-              className={`k-btn ${
-                activeComponent === "ToggleKT" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("ToggleKT")}
-            >
+            <button className={`k-btn ${ activeComponent === "ToggleKT" ? "active" : "" }`} onClick={() => handleButtonClick("ToggleKT")}>
               Search Tests
             </button>
             <button
@@ -54,6 +49,8 @@ const SectionTwo = ({ userId, auth, cart, setCart, handleLoginClick }) => {
           <div className="s2-selection-box d-flex justify-content-center gap-2 p-sm-3 px-sm-5 p-2">
             {activeComponent === "ToggleKT" && (
               <ToggleKT
+                localCartItems={localCartItems} 
+                setLocalCartItems={setLocalCartItems}
                 userId={userId}
                 auth={auth}
                 cart={cart}
@@ -66,6 +63,7 @@ const SectionTwo = ({ userId, auth, cart, setCart, handleLoginClick }) => {
                 userId={userId}
                 auth={auth}
                 cart={cart}
+                setCart={setCart}
                 handleLoginClick={handleLoginClick}
               />
             )}

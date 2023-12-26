@@ -4,20 +4,21 @@ import TestsBanner from "../../components/testsComponents/TestsBanner";
 import TestsFilterBarLeft from "../../components/testsComponents/TestsFilterBarLeft";
 import axios from "axios";
 import TestsGrid from "../../components/testsComponents/TestsGrid";
+import { BASE_API_URL } from "../../api";
 
 const Tests = ({ userId, auth, cart, setCart, handleLoginClick }) => {
   const [searchResults, setSearchResults] = useState([]);
   useEffect(() => {
     async function fetchInitialData() {
         try {
-            const response = await axios.get(`http://localhost:3210/orgsel?selectedorgan=heart`);
+            const response = await axios.get(`${BASE_API_URL}/orgsel?selectedorgan=heart`);
             setSearchResults(response.data);
         } catch (error) {
             console.error(error);
         }
     } 
     fetchInitialData();
-  }, [cart]);
+  }, []);
   
   return (
     <Wrapper className="testspage">
@@ -73,12 +74,9 @@ const Wrapper = styled.section`
       background-color: #00ffbb;
       position: relative;
       border-radius: 15px;
-      ${'' /* width: 32%; */}
-      /* padding: 25px; */
       z-index: 1;
       .ptBg {
-        background-image: url(/images/k-10.png),
-          linear-gradient(360deg, transparent, #005bab);
+        background-image: url(/images/k-10.png), linear-gradient(360deg, transparent, #005bab);
         background-size: cover;
         background-repeat: no-repeat;
         background-color: #005bab90;
@@ -87,7 +85,7 @@ const Wrapper = styled.section`
         height: 100%;
       }
       .pt-info {
-        color: ${({ theme }) => theme.colors.white};
+        color: white;
         h3 {
           font-size: 1.25rem;
           margin-bottom: 1rem;
@@ -97,7 +95,7 @@ const Wrapper = styled.section`
           margin-bottom: 1rem;
         }
         p {
-          color: ${({ theme }) => theme.colors.white};
+          color: white;
         }
       }
       .ptBtn {
@@ -116,12 +114,10 @@ const Wrapper = styled.section`
     }
   }
   .tsts {
-    /* background-color: #00203c; */
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     color: #00203c;
     border-radius: 15px;
     padding: 2rem;
-
     width: 48%;
     h3 {
       font-size: 1.5rem;
@@ -140,13 +136,6 @@ const Wrapper = styled.section`
     flex-wrap: wrap;
     padding-top: 1rem;
   }
-  .btn {
-    color: #fff;
-    font-size: 0.8rem;
-    width: 6rem;
-    background-color: #005bab;
-    justify-content: flex-end;
-  }
   .para {
     color: #bebebe;
   }
@@ -164,7 +153,6 @@ const Wrapper = styled.section`
     padding: 50px 0;
   }
   .tests-container {
-    /* background-color: antiquewhite; */
     margin: 3rem auto;
     padding: 0;
     border-radius: 15px;

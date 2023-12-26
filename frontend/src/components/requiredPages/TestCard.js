@@ -1,104 +1,41 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-export const TestCard = ({ item, userId, auth, cart, handleLoginClick }) => {
-  const [quantity, setQuantity] = useState(0);
-  const [showQuantityController, setShowQuantityController] = useState(false);
+export const TestCard = ({ cart, setCart, item }) => {
+  const [isItemSelected, setIsItemSelected] = useState(false);
 
+  const handleAddToCart = (item) => {
+    if(!isItemSelected){
+      const prevCartItems = JSON.parse(localStorage.getItem("selectedCartItems")) || [];
+      const newCartItems = [...prevCartItems, item];
+      localStorage.setItem('selectedCartItems', JSON.stringify(newCartItems));
+      setCart(JSON.parse(localStorage.getItem("selectedCartItems")));
+
+      toast.success(`${item.product_name} added to cart`, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        className: 'green-toast',
+      });
+    }  
+  };
+  const handleRemoveFromCart = (itemToRemove) => {
+    const prevCartItems = JSON.parse(localStorage.getItem("selectedCartItems")) || [];
+    console.log("prevCartItems:", prevCartItems);
+    const indexToRemove = prevCartItems.findIndex(item => item.product_id === itemToRemove.product_id);
+    const updatedCartItems = [...prevCartItems.slice(0, indexToRemove), ...prevCartItems.slice(indexToRemove + 1)];
+    localStorage.setItem("selectedCartItems", JSON.stringify(updatedCartItems));
+    setCart(updatedCartItems);
+
+    toast.error(`${item.product_name} removed from cart`, {
+      position: toast.POSITION.BOTTOM_RIGHT,
+      className: 'red-toast'
+    })
+  };
   useEffect(() => {
-    const cartItem = cart.find((cartItem) => cartItem.product_id === item.product_id);
-    if (cartItem) {
-      setQuantity(cartItem.quantity);
-      setShowQuantityController(true);
-    } else {
-      setShowQuantityController(false);
-    }
-  }, [cart, item.product_id]);
+    setIsItemSelected(cart.some(cartItem => cartItem.product_id === item.product_id));
+  }, [cart, item]);
 
-  const handleAddToCartClick = () => {
-    if (!auth) {
-      // Show an alert or a modal to sign in when auth is false
-      // alert('Please sign in to add to cart.');
-      handleLoginClick();
-      return;
-    }
-
-    setShowQuantityController(true);
-    const data = { product_id: item.product_id, userId, quantity: 1 };
-    axios
-      .post('http://localhost:3210/addtocart', data)
-      .then((response) => {
-        if (response.data.Status === 'Success') {
-          // 
-        } else {
-          console.log('err occurred, not Success');
-        }
-      })
-      .catch((error) => {
-        console.error('Error adding to cart:', error);
-      });
-  };
-
-  const handleIncrementQuantity = () => {
-    setQuantity(quantity + 1);
-    updateCartItemQuantity(quantity + 1);
-  };
-
-  const handleDecrementQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-      updateCartItemQuantity(quantity - 1);
-    } else if (quantity === 1) {
-      removeCartItem(item.product_id, userId);
-    }
-  };
-
-  const updateCartItemQuantity = (newQuantity) => {
-    if (!auth) {
-      // Show an alert or a modal to sign in when auth is false
-      // alert('Please sign in to update quantity.');
-      handleLoginClick();
-      return;
-    }
-
-    const data = { product_id: item.product_id, quantity: newQuantity, userId };
-    axios
-      .post('http://localhost:3210/updatecartitemquantity', data)
-      .then((response) => {
-        if (response.data.Status === 'Success') {
-          // refreshCart();
-        } else {
-          console.log('err occurred while updating quantity');
-        }
-      })
-      .catch((error) => {
-        console.error('Error updating quantity:', error);
-      });
-  };
-
-  const removeCartItem = (product_id, userId) => {
-    if (!auth) {
-      // Show an alert or a modal to sign in when auth is false
-      // alert('Please sign in to remove item.');
-      handleLoginClick();
-      return;
-    }
-
-    const data = { product_id, userId };
-    axios
-      .post('http://localhost:3210/removecartitem', data)
-      .then((response) => {
-        if (response.data.Status === 'Success') {
-          // 
-        } else {
-          console.log('err occurred while removing item');
-        }
-      })
-      .catch((error) => {
-        console.error('Error removing item:', error);
-      });
-  };
 
   return (
     <Wrapper>
@@ -111,37 +48,31 @@ export const TestCard = ({ item, userId, auth, cart, handleLoginClick }) => {
             <div className="card_org_cont">
               <img src={"/images/organs/" + item.category + ".png"} className="testOrgImg" alt="" />
             </div>
-            <h5 className="fw-bolder">{item.product_name}</h5>
-            <p className="small"> <b> INVCODE: </b> {item.product_code} </p>
-            <div className="w-100 mb-4 ">
+            <h6 className="text-k-accent text-k-clr-primary mb-2">{item.product_name}</h6>
+            <p className="small mb-0"> <b> INVCODE: </b> {item.product_code} </p>
+            <div className="w-100">
               <p className="mb-1 small"> <b> Sample Type: </b> {item.sample_type} </p>
-              <p className="mb-1 small"> <b> Test Report Delivery: </b> {item.test_report_delivery} </p>
-              <p className="mb-1 small"> <b> Frequency: </b> {item.frequency} </p>
+              {/* <p className="mb-1 small"> <b> Test Report Delivery: </b> {item.test_report_delivery} </p> */}
+              {/* <p className="mb-1 small"> <b> Frequency: </b> {item.frequency} </p> */}
             </div>
           </div>
 
           <div className="ftr-sec bg-light px-3 py-2 w-100 d-flex justify-content-between border-top tcardfooter">
             <div>
-              {auth ? (
-                showQuantityController ? (
-                  <div className='qntCntWrp'>
-                    <button className='plusminBtn plsBtn' onClick={handleDecrementQuantity}>-</button>
-                    <span className='quantDisp'>{quantity}</span>
-                    <button className='plusminBtn mnsBtn' onClick={handleIncrementQuantity}>+</button>
-                  </div>
-                ) : (
-                  <button className='btn btn-sm addtocartbtn text-white' onClick={handleAddToCartClick}>Add to Cart</button>
-                )
+              {isItemSelected ? (
+                <button className='btn btn-sm btn-success text-white' onClick={() => handleRemoveFromCart(item)}>Remove Item</button>
               ) : (
-                <button className='btn btn-sm addtocartbtn text-white' onClick={() => handleLoginClick()}>Add to Cart</button>
+                <button className='btn btn-sm btn-secondary text-white' onClick={() => handleAddToCart(item)}>Add to Cart</button>
               )}
             </div>
             <div>
-              <h4 className="price mb-0 fw-bolder"> <small>Rs: </small> {item.price} </h4>
+              <h5 className="price mb-0 fw-bolder"> <small>Rs: </small> {item.price} </h5>
             </div>
           </div>
         </div>
       </div>
+
+      <ToastContainer />
     </Wrapper>
   );
 };
@@ -169,14 +100,6 @@ const Wrapper = styled.section`
       border: 1px solid rgba(0,0,0,0.2);
       box-shadow: rgba(255, 255, 255, 0.02) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.05) 0px 50px 100px -20px, rgba(0, 0, 0, 0.06) 0px 30px 60px -30px;
     }
-    .cardcomplogo{
-      position: absolute;
-      width: 25px;
-      height: 25px;
-      top: 10px;
-      right: 10px;
-      z-index: 20;
-    }
   }
   .tcardbody{
     z-index: 2;
@@ -201,7 +124,7 @@ const Wrapper = styled.section`
   }
 
   .tstsCard {
-    height: 320px;
+    height: 230px;
     display: flex;
     flex-direction: column;
     transition: 0.5s;

@@ -1,7 +1,7 @@
 import React from "react";
-import Counter from "../../hooks/Counter";
+import Counter from "./Counter";
 import styled from "styled-components";
-import LazyLoadComponent from "../../hooks/LazyLoad";
+import LazyLoadComponent from "./LazyLoad";
 
 const CounterBox = () => {
   return (

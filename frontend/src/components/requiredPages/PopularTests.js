@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { TestCard } from "./TestCard";
+import { BASE_API_URL } from '../../api';
+
 
 export const PopularTests = ({ userId, auth, cart, setCart, handleLoginClick }) => {
   const [popularTests, setPopularTests] = useState([]);
@@ -10,7 +12,7 @@ export const PopularTests = ({ userId, auth, cart, setCart, handleLoginClick }) 
       const poptestscode = ["INV131", "INV1008", "INV1011", "INV1005"]; 
       async function getPopularTests() {
           try {
-              const response = await axios.get(`http://localhost:3210/getpoptests`, {params:{ codes: poptestscode }});
+              const response = await axios.get(`${BASE_API_URL}/getpoptests`, {params:{ codes: poptestscode }});
               setPopularTests(response.data);
           } catch (error) {
               console.error(error);

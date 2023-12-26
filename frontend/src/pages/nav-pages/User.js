@@ -6,7 +6,7 @@ import { BiLogOut } from "react-icons/bi";
 import { GrHelp } from "react-icons/gr";
 import { Link } from "react-router-dom";
 
-export const User = ({ auth, userName, message, handleLoginClick,handleLogout }) => {
+export const User = ({ auth, userName, message, handleLoginClick, handleLogout }) => {
   const [profileOpen, setProfileOpen] = useState(false);
   const close = () => {
     setProfileOpen(false);
@@ -17,19 +17,24 @@ export const User = ({ auth, userName, message, handleLoginClick,handleLogout })
         {auth ? (
           <>
             <button className="img" onClick={() => setProfileOpen(!profileOpen)}>
-              {userName}
-              <img src="https://img.freepik.com/free-psd/3d-icon-social-media-app_23-2150049569.jpg?w=740&t=st=1696243855~exp=1696244455~hmac=864a53a5e882db94836225b4739dc0049618d5cdbf66eb5256a7d068a40f4875" alt="" className="ms-2"/>
+              <div className="d-flex align-items-center">
+                <div className="pe-2">
+                  <p className="text-k-text mb-0">{userName}</p>
+                </div>
+                <div className="user-profile-icon">
+                  <i class="fa-solid fa-user"></i>
+                </div>
+              </div>
             </button>
             {profileOpen && (
               <div className="openProfile boxItems" onClick={close}>
-                <Link to="/profile">
-                  <div className="d-flex p-3 bg-light ">
-                    <div className="">
-                      <img src="https://img.freepik.com/free-psd/3d-icon-social-media-app_23-2150049569.jpg?w=740&t=st=1696243855~exp=1696244455~hmac=864a53a5e882db94836225b4739dc0049618d5cdbf66eb5256a7d068a40f4875" alt="" />
+                <Link to="/profile" className="text-decoration-none">
+                  <div className="d-flex align-items-center p-3 bg-light">
+                    <div className="user-profile-icon">
+                      <i class="fa-solid fa-user"></i>
                     </div>
                     <div className="ps-2">
                       <h4 className="text-start fw-bold mb-0">{userName}</h4>
-                      {/* <small className="text-start">Los Angeles, CA</small> */}
                     </div>
                   </div>
                 </Link>

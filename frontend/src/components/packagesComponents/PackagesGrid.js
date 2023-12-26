@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import axios from 'axios';
-import PackageItem from './PackageItem';
+import { BASE_API_URL } from '../../api'; 
+import PackageCard from './PackageCard';
 
-function PackagesGrid({ userId, auth, cart, qntt, handleLoginClick }) {
+function PackagesGrid({ userId, auth, cart, setCart, qntt, handleLoginClick }) {
   const [packages, setPackages] = useState([]);
   useEffect(() => {
       async function getallpackagesdata() {
           try {
-              const response = await axios.get(`http://localhost:3210/getpackages`);
+              const response = await axios.get(`${BASE_API_URL}/getpackages`);
               setPackages(response.data);
           } catch (error) {
               console.error(error);
@@ -24,7 +25,7 @@ function PackagesGrid({ userId, auth, cart, qntt, handleLoginClick }) {
         <div className="d-flex justify-content-center flex-wrap gap-3">
           {
             displayedPackages.map((item) => (
-               <PackageItem key={item.product_id} item={item} userId={userId} auth={auth} cart={cart} handleLoginClick={handleLoginClick} />
+               <PackageCard key={item.product_id} item={item} userId={userId} auth={auth} cart={cart} setCart={setCart} handleLoginClick={handleLoginClick} />
             ))
           }
         </div>
@@ -41,17 +42,9 @@ const Wrapper = styled.section`
   position: relative;
   width: 300px;
   overflow: hidden;
-  img{
+  img.packageFI{
     width: 100%;
   }
-  .cardcomplogo{
-      position: absolute;
-      width: 25px;
-      height: 25px;
-      top: 10px;
-      right: 10px;
-      z-index: 2;
-    }
   .packagename{
     font-size: 18px;
     font-weight: 700;

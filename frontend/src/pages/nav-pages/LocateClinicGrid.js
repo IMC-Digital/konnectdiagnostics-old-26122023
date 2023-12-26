@@ -2,13 +2,13 @@ import React from 'react';
 import { styled } from "styled-components";
 import { GoLocation } from "react-icons/go";
 import ImageCarousel from './LocateClinics/ImageCarousel';
-// import ImageCarousel2 from './LocateClinics/ImageCarousel2';
+// import ClinicData from '../../assets/data/ClinicData';
 
 function LocateClinicGrid({ clinicsdata, noclinics }) {
 
   return (
     <Wrapper>
-      <div className="clinics container p-0 ">
+      <div className="clinics container p-5">
         <div className="clinic">
           {clinicsdata.slice(0, noclinics).map((item) => (
             <div className="clinic-card d-flex">
@@ -45,21 +45,6 @@ function LocateClinicGrid({ clinicsdata, noclinics }) {
                     <p className='mb-0'>{item.email}</p>
                   </div>
                 </div>
-                
-                {/* <div>
-                  <iframe
-                    key={item.id}
-                    src={`${item.google_map_link}`}
-                    width="100%"
-                    height="250px"
-                    style={{ border: "0" }}
-                    allowFullScreen=""
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title={`Google Map for ${item.name}`}
-                  ></iframe>
-
-                </div> */}
               </div>
             </div>
           ))}
@@ -181,12 +166,5 @@ const Wrapper = styled.section`
           }
         }
       }
-    }
-
-    .cardcomplogo{
-      width: 20px;
-      height: 20px;
-      margin-right: 10px;
-      z-index: 20;
-    }  
+    } 
 `;

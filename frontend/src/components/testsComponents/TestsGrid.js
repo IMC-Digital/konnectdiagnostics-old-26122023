@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TestCard } from '../requiredPages/TestCard';
 import { styled } from 'styled-components';
 
-function TestsGrid({searchResults, userId, auth, cart, setCart, cardsPerPage, handleLoginClick}) {
+function TestsGrid({ localCartItems, setLocalCartItems, searchResults, userId, auth, cart, setCart, cardsPerPage, handleLoginClick}) {
   // const cardsPerPage  = 9;
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -38,7 +38,7 @@ function TestsGrid({searchResults, userId, auth, cart, setCart, cardsPerPage, ha
           <div className="d-flex justify-content-center flex-wrap gap-3">
             {
               visibleCards.map((item) => (
-                <TestCard key={item.product_id} item={item} auth={auth} userId={userId} cart={cart} setCart={setCart} handleLoginClick={handleLoginClick} />
+                <TestCard localCartItems={localCartItems} setLocalCartItems={setLocalCartItems} key={item.product_id} item={item} auth={auth} userId={userId} cart={cart} setCart={setCart} handleLoginClick={handleLoginClick} />
               ))
             }
           </div>
@@ -94,7 +94,6 @@ const Wrapper = styled.section`
   }
 
   .pagination button.active {
-    ${'' /* background: linear-gradient(360deg, #005bab, #00ffbb90); */}
     background: ${({ theme }) => theme.colors.primary};
     color: white;
     border: none;

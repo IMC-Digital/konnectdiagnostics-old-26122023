@@ -2,13 +2,14 @@ import React from 'react';
 import axios from 'axios';
 import ProfileForm from './ProfileForm';
 import UserProfile from './UserProfile';
+import { BASE_API_URL } from '../api';
 
 const Profile = ({ userId, auth, profileData, showProfileForm, setShowProfileForm, setProfileData }) => {
   axios.defaults.withCredentials = true;
 
   const handleProfileSubmit = async (formData) => {
     try {
-      const response = await axios.post(`http://localhost:3210/profile/${userId}`, formData);
+      const response = await axios.post(`${BASE_API_URL}/profile/${userId}`, formData);
       if (response.data.profileAdded) {
         setProfileData(response.data.profileData);
         setShowProfileForm(false);

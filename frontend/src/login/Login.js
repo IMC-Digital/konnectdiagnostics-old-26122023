@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { BASE_API_URL } from "../api";
 
 export const Login = ({setShowLogin, handleLoginClick}) => {
   const [values, setValues] = useState({
@@ -11,7 +12,7 @@ export const Login = ({setShowLogin, handleLoginClick}) => {
   axios.defaults.withCredentials = true;
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post("http://localhost:3210/login", { values })
+    axios.post(`${BASE_API_URL}/login`, { values })
       .then((res) => {
         if (res.data.Status === "Success") {
           // console.log(res.data.Status);
@@ -30,7 +31,6 @@ export const Login = ({setShowLogin, handleLoginClick}) => {
   };
   
   return (
-    // <div className="border border-danger">
         <div className="container d-flex justify-content-center align-items-center p-0 border w-60 bg-light position-relative">
           <div className="w-50 p-5 bg-dark bg-gradient text-white" style={{height: "400px"}}>
             <h2>Hello, Friend!</h2>
@@ -90,7 +90,6 @@ export const Login = ({setShowLogin, handleLoginClick}) => {
             </svg>
           </button>
         </div>
-    // </div>
   );
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import PackagesGrid from './PackagesGrid';
+import PackagesGrid from '../../components/packagesComponents/PackagesGrid';
 
 function HealthPackages({ userId, auth, cart, handleLoginClick }) {
   return (

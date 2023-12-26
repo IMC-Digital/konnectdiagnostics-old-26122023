@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import EmailExistPopup from "./EmailExistPopup";
+import { BASE_API_URL } from "../api";
 
 export const Register = ({ setShowLogin, handleLoginClick }) => {
   const [values, setValues] = useState({
@@ -13,7 +14,7 @@ export const Register = ({ setShowLogin, handleLoginClick }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     axios
-      .post("http://localhost:3210/register", { values })
+      .post(`${BASE_API_URL}/register`, { values })
       .then((response) => {
         if (response.data.Status === "Success") {
           // console.log(response.data.Status);

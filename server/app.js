@@ -33,7 +33,7 @@ const otpdb = createOtpDbConnection();
 
 // ----------------------------------------------
 const accountSid = 'AC9ca547f7c708b233df42e89bfbdca249';
-const authToken = '999530f731e85821ec6d30b57b472d13';
+const authToken = 'de7106ee043523afd930908d5a95461b';
 const client = twilio(accountSid, authToken);
 // ----------------------------------------------
 
@@ -53,12 +53,16 @@ const client = twilio(accountSid, authToken);
   // -----------------------------------------------------------
 
 app.get('/', (req, res) => {
-  res.send('Hello');
+  res.json('Hello');
 })
 
 // ------------------------------------------------------------
 const clinicsRoutes = require('./src/routes/clinicsroutes');
+const couponRoutes = require('./src/routes/couponroutes');
+const userRoutes = require('./src/routes/userroutes');
 app.use('/clinics', clinicsRoutes);
+app.use('/coupon', couponRoutes);
+app.use('/user', userRoutes);
 
 
 // ------------------------------------------------------------
@@ -106,27 +110,27 @@ app.get('/orgsel', (req, res) => {
   });
 
 // ===========================================================================================
-const verifyUser = (req, res, next) => {
-  const token = req.cookies.token;
-  if (!token) {
-      return res.json({ TokenError: "not Authenticated, Login!" });
-  } else {
-      jwt.verify(token, privateKey, (err, decoded) => {
-          if (err) {
-              return res.json({ TokenIncorrectError: "token not correct" });
-          } else {
-              req.user_id = decoded.user_id;
-              req.user_name = decoded.user_name; // Include user_name in req
-              req.cart_id = decoded.cart_id;
-              next();
-          }
-      });
-  }
-};
+// const verifyUser = (req, res, next) => {
+//   const token = req.cookies.token;
+//   if (!token) {
+//       return res.json({ TokenError: "not Authenticated, Login!" });
+//   } else {
+//       jwt.verify(token, privateKey, (err, decoded) => {
+//           if (err) {
+//               return res.json({ TokenIncorrectError: "token not correct" });
+//           } else {
+//               req.user_id = decoded.user_id;
+//               req.user_name = decoded.user_name; // Include user_name in req
+//               req.cart_id = decoded.cart_id;
+//               next();
+//           }
+//       });
+//   }
+// };
 
-app.get('/user', verifyUser, (req, res) => {
-  return res.json({ Status: "ok", userid: req.user_id, cart_id: req.cart_id }); // Include user_name in the response
-});
+// app.get('/user', verifyUser, (req, res) => {
+//   return res.json({ Status: "ok", userid: req.user_id, cart_id: req.cart_id }); // Include user_name in the response
+// });
 
 app.post('/login', (req, res) => {
   const { email, password } = req.body.values;
@@ -279,14 +283,14 @@ app.post("/verifyotp", async (req, res) => {
                           const tokenPayload = { user_id, cart_id };
                           const token = jwt.sign(tokenPayload, privateKey, { expiresIn: "1d" });
                           res.cookie('token', token);
-                          return res.json({ Status: "Success" });
+                          return res.json({ Status: "Verified" });
                       });
                   } else {
                       const cart_id = cartData[0].cart_id;
                       const tokenPayload = { user_id, cart_id };
                       const token = jwt.sign(tokenPayload, privateKey, { expiresIn: "1d" });
                       res.cookie('token', token);
-                      return res.json({ Status: "Success" });
+                      return res.json({ Status: "Verified" });
                   }
               });
           } else {

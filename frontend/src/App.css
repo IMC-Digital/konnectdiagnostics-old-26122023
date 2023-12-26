@@ -1,5 +1,8 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@700&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300;700;900&display=swap');
+@import url('./styles/minicart.css');
+@import url('./styles/packages.css');
+@import url('./styles/User.css');
 
 :root {
   --primary-color: #005BAB;
@@ -18,7 +21,6 @@
 h1{
   font-size: 1.75rem;
   font-weight: 700;
-  text-transform: uppercase;
 }
 h2{
   font-size: 1.625rem;
@@ -48,6 +50,32 @@ p{
 .w1000{
   width: 1000px;
 }
+
+.text-k-clr-primary{ color: var(--primary-color); }
+.text-k-clr-secondary{ color: var(--secondary-color); }
+.text-k-clr-text{ color: var(--text-color); }
+
+.text-k-primary{
+  font-size: 46px;
+  font-weight: 800;
+  line-height: 56px;
+}
+.text-k-secondary{
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 36px;
+}
+.text-k-text{
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+}
+.text-k-accent{
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 26px;
+}
+
 .btn-k-primary{
   border: none;
   padding: 5px 20px;
@@ -61,7 +89,7 @@ p{
 }
 .btn-k-secondary{
   border: none;
-  padding: 5px 20px;
+  padding: 8px 20px;
   border-radius: 5px;
   color: white !important;
   background-color: var(--secondary-color) !important;
@@ -71,7 +99,11 @@ p{
   background-color: var(--primary-color) !important;
 }
 .cursor-pointer:hover{cursor: pointer;}
+
 .hover-bg-danger:hover{background-color: rgb(218, 0, 0)(218, 0, 0);}
+.hover-bg-primary:hover{ background-color: var(--primary-color) }
+.hover-bg-secondary:hover{ background-color: var(--secondary-color) }
+
 .bg-k-primary{background-color: var(--primary-color);}
 .bg-k-secondary{background-color: var(--secondary-color);}
 
@@ -236,7 +268,7 @@ p{
   height: auto;
 }
 .popupsec{
-  border-radius: 15px;
+  border-radius: 8px;
   overflow: hidden;
 }
 

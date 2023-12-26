@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { styled } from "styled-components";
 import { NavLink } from "react-router-dom";
 
-const Navbar = ({ cartSize }) => {
+const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -36,11 +36,6 @@ const Navbar = ({ cartSize }) => {
                 Services
               </NavLink>
               <ul className="subMenu">
-                {/* <li className="subMenuItem">
-                  <NavLink to="/health-conditions" className="sub-nav-list">
-                    Health Conditions
-                  </NavLink>
-                </li> */}
                 <li className="subMenuItem">
                   <NavLink to="/radiology-services" className="sub-nav-list">
                     Radiology Services

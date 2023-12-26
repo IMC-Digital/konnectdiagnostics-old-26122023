@@ -6,15 +6,15 @@ import AtoZ from "../requiredPages/AtoZ";
 import SearchBar from "../requiredPages/SearchBar";
 import axios from "axios";
 import TestsGrid from "../testsComponents/TestsGrid";
+import { BASE_API_URL } from "../../api";
 
 
-const ToggleKT = ({ userId, auth, cart, setCart, handleLoginClick }) => {
+const ToggleKT = ({ localCartItems, setLocalCartItems, userId, auth, cart, setCart, handleLoginClick }) => {
   const [searchResults, setSearchResults] = useState([]);
   useEffect(() => {
     async function fetchInitialData() {
         try {
-            // const response = await axios.get("http://localhost:3210/search?q=A");
-            const response = await axios.get("http://localhost:3210/search?q=A");
+            const response = await axios.get(`${BASE_API_URL}/search?q=A`);
             setSearchResults(response.data);
         } catch (error) {
             console.error(error);
@@ -40,7 +40,7 @@ const ToggleKT = ({ userId, auth, cart, setCart, handleLoginClick }) => {
           </div>
         </div>
       
-        <TestsGrid userId={userId} auth={auth} cart={cart} setCart={setCart} searchResults={searchResults} cardsPerPage={6} handleLoginClick={handleLoginClick} />
+        <TestsGrid localCartItems={localCartItems} setLocalCartItems={setLocalCartItems} userId={userId} auth={auth} cart={cart} setCart={setCart} searchResults={searchResults} cardsPerPage={6} handleLoginClick={handleLoginClick} />
       </div>
     </Wrapper>
   );

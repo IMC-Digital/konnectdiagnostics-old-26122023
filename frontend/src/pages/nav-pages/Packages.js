@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import axios from "axios";
-import PackageItemInfo from "./PackageItemInfo";
+import PackageItemInfo from "../../components/packagesComponents/PackageItemInfo";
+import { BASE_API_URL } from "../../api";
 
-const Packages = ({ auth, userId, cart, handleLoginClick }) => {
+const Packages = ({ auth, userId, cart, setCart, handleLoginClick }) => {
   const [packages, setPackages] = useState([]);
   const [activeTab, setActiveTab] = useState();
   useEffect(() => {
       async function getallpackagesdata() {
           try {
-              const response = await axios.get(`http://localhost:3210/getpackages`);
+              const response = await axios.get(`${BASE_API_URL}/getpackages`);
               setPackages(response.data);
               setActiveTab(response.data[0].product_id)
           } catch (error) {
@@ -32,7 +33,7 @@ const Packages = ({ auth, userId, cart, handleLoginClick }) => {
           </div>
           <div className="tab-content" style={{ width: "75%" }}>
             {packages.map((item) => (
-              <PackageItemInfo key={item.product_id_id} item={item} auth={auth} userId={userId} cart={cart} activeTab={activeTab} handleLoginClick={handleLoginClick} />
+              <PackageItemInfo key={item.product_id_id} item={item} auth={auth} userId={userId} cart={cart} setCart={setCart} activeTab={activeTab} handleLoginClick={handleLoginClick} />
             ))}
           </div>
         </div>
@@ -51,34 +52,27 @@ const Wrapper = styled.section`
       display: flex;
       flex-direction: column;
       button {
-        background-color: ${({ theme }) => theme.colors.white};
+        background-color: white;
         border: none;
         font-size: 1rem;
         font-weight: 500;
-        border-bottom: 1px solid ${({ theme }) => theme.colors.primary90};
+        border-bottom: 1px solid #e3e3e3;
         padding: 10px;
         text-align: start;
+        border-radius: 8px;
         &:hover {
-          background-image: url(/images/k-10.png),
-            linear-gradient(220deg, #005bab, #00ffbb90);
+          color: #00aeef;
         }
       }
       button.active {
-        background-image: url(/images/k-10.png),
-          linear-gradient(220deg, #005bab, #00ffbb90);
+        background: #005BAB;
         color: white;
-        &:hover {
-          background-image: url(/images/k-10.png),
-            linear-gradient(220deg, #005bab, #00ffbb90);
-        }
       }
     }
     .tab-content {
       .atc {
         border: none;
-        background-image: url(/images/k-10.png),
-          linear-gradient(220deg, #005bab, #00ffbb90);
-        color: ${({ theme }) => theme.colors.white};
+        background-image: url(/images/k-10.png), linear-gradient(220deg, #005bab, #00ffbb90);
         font-size: 1rem;
         font-weight: 500;
         border-radius: 5px;
@@ -86,8 +80,7 @@ const Wrapper = styled.section`
         padding: 8px 20px;
         transition: all 0.3s;
         &:hover {
-          background-image: url(/images/k-10.png),
-            linear-gradient(90deg, #005bab, #00ffbb90);
+          background-image: url(/images/k-10.png), linear-gradient(90deg, #005bab, #00ffbb90);
         }
       }
     }
@@ -95,8 +88,7 @@ const Wrapper = styled.section`
   .tab-bg {
     align-items: center;
     text-align: center;
-    background-image: url(/images/k-10.png),
-      linear-gradient(220deg, #005bab, #00ffbb90);
+    background-image: var(--primary-color);
     border-radius: 15px;
     height: 200px;
     z-index: 0;
@@ -107,7 +99,7 @@ const Wrapper = styled.section`
     margin-bottom: 25px;
     .pkg-top {
       box-shadow: rgba(100, 100, 111, 0.2) 0px 2px 10px 0px;
-      background-color: ${({ theme }) => theme.colors.white};
+      background-color: white;
       border-radius: 15px;
       width: 88%;
       .pkg-image {
@@ -128,7 +120,6 @@ const Wrapper = styled.section`
         justify-content: space-between;
         .code {
           font-size: 1rem;
-          color: ${({ theme }) => theme.colors.text};
           font-weight: 600;
         }
         .price {
@@ -136,12 +127,8 @@ const Wrapper = styled.section`
           margin: 15px 0;
           font-size: 1.5rem;
           font-weight: 700;
-          color: ${({ theme }) => theme.colors.primary};
-          span {
-            color: ${({ theme }) => theme.colors.text};
-          }
           svg {
-            fill: ${({ theme }) => theme.colors.primary};
+            
             margin-right: 5px;
           }
         }
@@ -152,9 +139,11 @@ const Wrapper = styled.section`
     display: flex;
     overflow-y: scroll;
     margin: 0px auto;
+    padding-right: 30px;
     width: 88%;
-    height: 60vh;
+    height: 80vh;
     &::-webkit-scrollbar {
+      scroll-behaviour: smooth;
       width: 5px;
       box-shadow: inset 0 0 7px #11010125;
       border-radius: 10px;

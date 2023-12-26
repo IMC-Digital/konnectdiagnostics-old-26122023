@@ -1,17 +1,19 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { BASE_API_URL } from '../api'; 
+
 
 function OtpLogin({ handleLoginClick }) {
     const [number, setNumber] = useState("");
     const [Otp, setOtp] = useState("");
     const [numberVerified, setNumberVerified] = useState(false);
+    const [otpMismatchText, setOtpMismatchText] = useState(false);
     axios.defaults.withCredentials = true;
 
     const handleSubmit = async (event) => {
       event.preventDefault();
-      await axios.post("http://localhost:3210/otplogin", { number })
+      await axios.post(`${ BASE_API_URL }/otplogin`, { number })
       .then((res) => {
-        console.log(res.data);
         if (res.data.Status === "OTP sent!") {
           setNumberVerified(true);
         } else {
@@ -26,28 +28,37 @@ function OtpLogin({ handleLoginClick }) {
 
     const handleOtpSubmit = async (event) => {
       event.preventDefault();
-      await axios.post("http://localhost:3210/verifyotp", {number, Otp})
+      await axios.post(`${ BASE_API_URL }/verifyotp`, {number, Otp})
       .then((res) => {
-        if (res.data.Status === "Success") {
+        if (res.data.Status === "Verified") {
           setTimeout(()=> {
             window.location.reload();
-          }, 1000)
+          }, 2000)
         } else {
           alert(res.data.Error);
           console.log(res.data.Error);
         }
       }).catch((err) => {
-        console.error("Axioss error:", err);
+        if(err.response.status) setOtpMismatchText(true);
       })
     }
 
     return (
         <div className="container popupsec d-flex justify-content-center align-items-center p-0 bg-light position-relative" style={{width: "867px"}}>
           <div className="w-50 loginpopupleftsec" style={{height: "400px"}}>
-            {/* <img src="https://img.freepik.com/premium-photo/doctor-research-analysis-diagnose-checking-brain-testing-result-patient-medical-technology_34200-493.jpg" alt="loginImg" className='img-fluid' /> */}
           </div>
-          <div className="w-50 mh-100 p-5">
-            {numberVerified ? <VerifyOTPsec handleOtpSubmit={handleOtpSubmit} setOtp={setOtp} /> : <MobileNumsec handleSubmit={handleSubmit} number={number} setNumber={setNumber} /> }
+          <div className="w-50 mh-100 p-3 px-5">
+            {numberVerified ? 
+              <VerifyOTPsec 
+                otpMismatchText={otpMismatchText} 
+                handleOtpSubmit={handleOtpSubmit} 
+                setOtp={setOtp} 
+              /> : 
+              <MobileNumsec 
+                handleSubmit={handleSubmit} 
+                number={number} 
+                setNumber={setNumber} 
+              /> }
           </div>
           <button className="popupclosebtn" onClick={handleLoginClick}>
             <svg height="25" viewBox="0 0 32 32" width="25" xmlns="http://www.w3.org/2000/svg" fill="white">
@@ -64,8 +75,8 @@ export default OtpLogin
 function MobileNumsec({ handleSubmit, number, setNumber }) {
   return (
     <div id='mobileNumsec'>
-      <h1 className="mb-2 me-3">Sign In / Sign Up</h1>
-      <p>View your reports and upcoming health checkups at one place.</p>
+      <h1 className="text-k-secondary">Sign In / Sign Up</h1>
+      <p className='text-k-text small'>View your reports and upcoming health checkups at one place.</p>
       <form onSubmit={handleSubmit} className='my-3'>
         <div className="form-outline mb-2">
           <input 
@@ -77,7 +88,7 @@ function MobileNumsec({ handleSubmit, number, setNumber }) {
             required
             onChange={e => setNumber(e.target.value )} 
         />
-        <small>An OTP will be sent on this number</small>
+        <p className='small fw-bold'>An OTP will be sent on this number</p>
         </div>
         <div className="text-center text-lg-start pt-2">
           <button type="submit" className="btn btn-primary btn-md btn-block w-100" style={{ paddingLeft: "2.5rem", paddingRight: "2.5rem" }}>
@@ -85,18 +96,19 @@ function MobileNumsec({ handleSubmit, number, setNumber }) {
           </button>
         </div>
       </form>
-      <small>By proceeding, you agree to Konnect Diagnostics T&C and Privacy Policy</small>
+      <p className='text-k-text small'>By proceeding, you agree to Konnect Diagnostics T&C and Privacy Policy</p>
     </div>
   )
 }
 
-function VerifyOTPsec({ handleOtpSubmit, setOtp }) {
+function VerifyOTPsec({ handleOtpSubmit, otpMismatchText, setOtp }) {
   return (
     <div id='verifyOTPsec'>
       <h1>Enter OTP</h1>
       <form onSubmit={handleOtpSubmit}>
         <div className="form-outline mb-2">
           <input type="text" name="otp" id="otp" className="form-control form-control-md my-3" placeholder="Enter OTP..." required onChange={e => setOtp(e.target.value)} />
+          { otpMismatchText ? <p className='text-danger small'>OTP mismatched, Please try again</p> : "" }
           <input type="submit" className='btn btn-primary' value="Submit" />
         </div>
       </form>

@@ -4,6 +4,7 @@ import LocateClinicGrid from "./LocateClinicGrid";
 import ClinicSearchBar from "./LocateClinics/ClinicsSearchBar";
 import axios from "axios";
 import ClinicPinSearch from "./LocateClinics/ClinicPinSearch";
+import { BASE_API_URL } from "../../api";
 
 const LocateClinic = () => {
   const [showNoExctPin, setshowNoExctPin] = useState(false);
@@ -15,7 +16,7 @@ const LocateClinic = () => {
     const storedPinCodes = sessionStorage.getItem("enteredpincodes");
     setSessPinCodes(storedPinCodes || '');
 
-    axios.get(`http://localhost:3210/clinics`)
+    axios.get(`${BASE_API_URL}/clinics`)
     .then((response) => {
       setClinicsdata(response.data);
     })
@@ -26,7 +27,7 @@ const LocateClinic = () => {
 
   const handlePinCodeSearch = async () => {
     try {
-        const response = await axios.get(`http://localhost:3210/clinics/pinsearch?q=${pinSearchTerm}`);
+        const response = await axios.get(`${BASE_API_URL}/clinics/pinsearch?q=${pinSearchTerm}`);
 
         if(response.data.nearestCenters){
           setshowNoExctPin(true);
@@ -43,7 +44,7 @@ const LocateClinic = () => {
   const pinclick = async (item) => {
     console.log(pinSearchTerm);
     try {
-      const response = await axios.get(`http://localhost:3210/clinicpinsearch?q=${item}`);
+      const response = await axios.get(`${BASE_API_URL}/clinicpinsearch?q=${item}`);
       setClinicsdata(response.data.exactPincodeResults);
       setshowNoExctPin(false);
         

@@ -1,13 +1,13 @@
 import React from "react";
 import { styled } from "styled-components";
 import axios from "axios";
+import { BASE_API_URL } from '../../api';
 
 const OrganCarousel = ({ images, setSearchResults }) => {
   const handleOrgSel = async (event) => {
     const selectedOrg = event.currentTarget.querySelector('img').alt;
     try {
-      // const response = await axios.get(`http://localhost:3210/orgsel?selectedorgan=${selectedOrg}`);
-      const response = await axios.get(`http://localhost:3210/orgsel?selectedorgan=${selectedOrg}`);
+      const response = await axios.get(`${BASE_API_URL}/orgsel?selectedorgan=${selectedOrg}`);
       setSearchResults(response.data);
     } catch (error) {
       console.error(error);

@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { BASE_API_URL } from '../../api'; 
 
 function PackageItem({ item, auth, userId, cart, handleLoginClick }) {
   const [quantity, setQuantity] = useState(0);
@@ -24,7 +25,7 @@ function PackageItem({ item, auth, userId, cart, handleLoginClick }) {
     setShowQuantityController(true);
     const data = { product_id: item.product_id, userId, quantity: 1 };
     axios
-      .post('http://localhost:3210/addtocart', data)
+      .post(`${BASE_API_URL}/addtocart`, data)
       .then((response) => {
         if (response.data.Status === 'Success') {
           // 
@@ -59,7 +60,7 @@ function PackageItem({ item, auth, userId, cart, handleLoginClick }) {
 
     const data = { product_id: item.product_id, quantity: newQuantity, userId };
     axios
-      .post('http://localhost:3210/updatecartitemquantity', data)
+      .post(`${BASE_API_URL}/updatecartitemquantity`, data)
       .then((response) => {
         if (response.data.Status === 'Success') {
           // refreshCart();
@@ -80,7 +81,7 @@ function PackageItem({ item, auth, userId, cart, handleLoginClick }) {
 
     const data = { product_id, userId };
     axios
-      .post('http://localhost:3210/removecartitem', data)
+      .post(`${BASE_API_URL}/removecartitem`, data)
       .then((response) => {
         if (response.data.Status === 'Success') {
           // 

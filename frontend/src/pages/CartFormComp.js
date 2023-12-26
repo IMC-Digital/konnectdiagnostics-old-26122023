@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
+import { BASE_API_URL } from "../api";
 
 const cartListItems = {
     listStyleType: "none",
@@ -29,7 +30,7 @@ function CartFormComp({cart}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.post('http://localhost:3210/sendemail', formData);
+        const response = await axios.post(`${BASE_API_URL}/sendemail`, formData);
         console.log(response.data);
         setSubmitted(true);
       } catch (error) {

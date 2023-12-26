@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { BASE_API_URL } from '../../api';
 
 function SearchBar({ setSearchResults }) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -18,7 +19,7 @@ function SearchBar({ setSearchResults }) {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`http://localhost:3210/search?q=${searchTerm}`);
+      const response = await axios.get(`${BASE_API_URL}/search?q=${searchTerm}`);
       setSearchResults(response.data);
       // console.log(response.data);
     } catch (error) {

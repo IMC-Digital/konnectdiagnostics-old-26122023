@@ -1,20 +1,22 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { BsCurrencyRupee } from 'react-icons/bs';
+import React, { useEffect, useState } from 'react';
+import { BASE_API_URL } from '../../api';
+
 // =======================================================
-import HealthScreen from "../../components/healthpackages/HealthScreen";
-import DiabeticPackage from "../../components/healthpackages/DiabeticPackage";
-import KonnectMasterHealthCheckup from "../../components/healthpackages/KonnectMasterHealthCheckup";
-import ExecutiveHealthCheckup from "../../components/healthpackages/ExecutiveHealthCheckup";
-import CardiacProfile from "../../components/healthpackages/CardiacProfile";
-import ExecutiveCardiacProfile from "../../components/healthpackages/ExecutiveCardiacProfile";
-import WellWomenPackage from "../../components/healthpackages/WellWomenPackage";
-import NutritionPackage from "../../components/healthpackages/NutritionPackage";
-import WholeBodyPackage from "../../components/healthpackages/WholeBodyPackage";
-import CancerScreeningMale from "../../components/healthpackages/CancerScreeningMale";
-import CancerScreeningFemale from "../../components/healthpackages/CancerScreeningFemale";
+import HealthScreen from "./healthpackages/HealthScreen";
+import DiabeticPackage from "./healthpackages/DiabeticPackage";
+import KonnectMasterHealthCheckup from "./healthpackages/KonnectMasterHealthCheckup";
+import ExecutiveHealthCheckup from "./healthpackages/ExecutiveHealthCheckup";
+import CardiacProfile from "./healthpackages/CardiacProfile";
+import ExecutiveCardiacProfile from "./healthpackages/ExecutiveCardiacProfile";
+import WellWomenPackage from "./healthpackages/WellWomenPackage";
+import NutritionPackage from "./healthpackages/NutritionPackage";
+import WholeBodyPackage from "./healthpackages/WholeBodyPackage";
+import CancerScreeningMale from "./healthpackages/CancerScreeningMale";
+import CancerScreeningFemale from "./healthpackages/CancerScreeningFemale";
 // =======================================================
 const hpContComps = [<HealthScreen />, <DiabeticPackage />, <KonnectMasterHealthCheckup />, <ExecutiveHealthCheckup />, <CardiacProfile />, <ExecutiveCardiacProfile />, <WellWomenPackage />, <NutritionPackage />, <WholeBodyPackage />, <CancerScreeningMale />, <CancerScreeningFemale />];
+
 
 function PackageItemInfo({ item, auth, userId, cart, activeTab, handleLoginClick }) {
   const [quantity, setQuantity] = useState(0);
@@ -39,7 +41,7 @@ function PackageItemInfo({ item, auth, userId, cart, activeTab, handleLoginClick
     setShowQuantityController(true);
     const data = { product_id: item.product_id, userId, quantity: 1 };
     axios
-      .post('http://localhost:3210/addtocart', data)
+      .post(`${BASE_API_URL}/addtocart`, data)
       .then((response) => {
         if (response.data.Status === 'Success') {
           // 
@@ -74,7 +76,7 @@ function PackageItemInfo({ item, auth, userId, cart, activeTab, handleLoginClick
 
     const data = { product_id: item.product_id, quantity: newQuantity, userId };
     axios
-      .post('http://localhost:3210/updatecartitemquantity', data)
+      .post(`${BASE_API_URL}/updatecartitemquantity`, data)
       .then((response) => {
         if (response.data.Status === 'Success') {
           // refreshCart();
@@ -95,7 +97,7 @@ function PackageItemInfo({ item, auth, userId, cart, activeTab, handleLoginClick
 
     const data = { product_id, userId };
     axios
-      .post('http://localhost:3210/removecartitem', data)
+      .post(`${BASE_API_URL}/removecartitem`, data)
       .then((response) => {
         if (response.data.Status === 'Success') {
           // 
@@ -110,7 +112,7 @@ function PackageItemInfo({ item, auth, userId, cart, activeTab, handleLoginClick
 
   return (
     <div className={`tab-pane ${item.product_id === activeTab ? "active" : ""}`}>
-      <div className="tab-bg ">{/* <h2>{tab.title}</h2> */}</div>
+      <div className="tab-bg bg-k-primary">{/* <h2>{tab.title}</h2> */}</div>
       <div className="pkg-active-bg-top d-flex">
         <div className="pkg-top d-flex">
           <div className="pkg-image">
@@ -120,9 +122,8 @@ function PackageItemInfo({ item, auth, userId, cart, activeTab, handleLoginClick
             <div className="pkg-code">
               <h3>{item.product_name}</h3>
               <h5 className="code">Code :{item.product_code}</h5>
-              <p className="price">
-                <span>Price : </span>
-                <BsCurrencyRupee />
+              <p className="text-k-clr-primary fw-bolder">
+                <span> Price : &#8377; </span>
                 {item.price}/-
               </p>
             </div>
@@ -136,10 +137,10 @@ function PackageItemInfo({ item, auth, userId, cart, activeTab, handleLoginClick
                     <button className='plusminBtn mnsBtn' onClick={handleIncrementQuantity}>+</button>
                   </div>
                 ) : (
-                  <button className='btn-k-secondary' onClick={handleAddToCartClick}>Add to Cart</button>
+                  <button className='btn btn-sm btn-k-secondary' onClick={handleAddToCartClick}>Add to Cart</button>
                 )
               ) : (
-                <button className='btn-k-secondary' onClick={() => handleLoginClick() }>Add to Cart</button>
+                <button className='btn btn-sm btn-k-secondary' onClick={() => handleLoginClick() }>Add to Cart</button>
               )}
             </div>
           </div>

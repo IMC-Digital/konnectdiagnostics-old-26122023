@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { styled } from "styled-components";
+import { BASE_API_URL } from '../api'; 
 
 const ProfileUpdate = ({ userId, profileData, setProfileData }) => {
   const [formData, setFormData] = useState({
@@ -22,7 +23,7 @@ const ProfileUpdate = ({ userId, profileData, setProfileData }) => {
     e.preventDefault();
     console.log(formData);
     try {
-      const response = await axios.post(`http://localhost:3210/updateprofile/${userId}`, formData);
+      const response = await axios.post(`${BASE_API_URL}/updateprofile/${userId}`, formData);
       // console.log(response.data);
       if (response.data.profileUpdated) {
         // setProfileData(response.data.updatedProfileData);

@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import { organImages } from "../../assets/data/AllData";
 import axios from 'axios';
 import SearchBar from '../requiredPages/SearchBar';
+import { BASE_API_URL } from '../../api';
 
 function TestsOrgFilterLeft({ setSearchResults }) {
-    const [activeOrg, setActiveOrg] = useState(organImages[0].alt); // Initially set the first item as active
+    const [activeOrg, setActiveOrg] = useState(organImages[0].alt);
 
     const handleOrgSel = async (event) => {
         const selectedOrg = event.currentTarget.querySelector('img').alt;
         try {
             // const response = await axios.get(`https://konnectserver.infocusrx.work/orgsel?selectedorgan=${selectedOrg}`);
-            const response = await axios.get(`http://localhost:3210/orgsel?selectedorgan=${selectedOrg}`);
+            const response = await axios.get(`${BASE_API_URL}/orgsel?selectedorgan=${selectedOrg}`);
             setSearchResults(response.data);
-            setActiveOrg(selectedOrg); // Update the active item when clicked
+            setActiveOrg(selectedOrg);
         } catch (error) {
             console.error(error);
         }
@@ -26,7 +27,7 @@ function TestsOrgFilterLeft({ setSearchResults }) {
                     {organImages.map((image, index) => (
                         <div className={`org-item ${activeOrg === image.alt ? 'active' : ''}`} key={index} onClick={handleOrgSel}>
                             <img src={image.src} alt={image.alt} />
-                            <p>{image.alt}</p>
+                            <p className='mb-0 ps-2'>{image.alt}</p>
                         </div>
                     ))}
                 </div>

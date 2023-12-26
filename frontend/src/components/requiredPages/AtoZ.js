@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { BASE_API_URL } from '../../api'; 
 
 const alphbtns = {
   width: "35px",
@@ -13,7 +14,7 @@ function AtoZ({ setSearchResults }) {
   
   const handleButtonClick = async (letter) => {
     try {
-      const response = await axios.get(`http://localhost:3210/getbyletter?l=${letter}`);
+      const response = await axios.get(`${BASE_API_URL}/getbyletter?l=${letter}`);
       setSearchResults(response.data);
       setActiveLetter(letter);
     } catch (error) {

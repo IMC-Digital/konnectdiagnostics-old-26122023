@@ -2,12 +2,12 @@ import React from "react";
 // import { FaShoppingCart } from "react-icons/fa";
 import styled from "styled-components";
 
-const CartIcon = ({ size }) => {
+const CartIcon = ({ cart }) => {
   return (
     <Wrapper>
       <div className="cart-icon-box">
         <i className="fa-solid fa-cart-plus"></i>
-        <span className="item-count">{size}</span>
+        <span className="item-count">{cart.length}</span>
       </div>
     </Wrapper>
   );
@@ -23,22 +23,16 @@ const Wrapper = styled.section`
   padding: 8px;
 }
 
-.cart-icon {
-  font-size: 30px;
-  color: ${({ theme }) => theme.colors.primary};
-}
-
 .item-count {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 24px;
   height: 24px;
-  background-color: ${({ theme }) => theme.colors.primary}; /* Circle background color */
   color: #fff;
   font-size: 14px;
-  border-radius: 50%; /* Make it a circle by setting border-radius to 50% */
-  margin-left: 8px; /* Add some space between the icon and count */
+  border-radius: 50%; 
+  margin-left: 8px;
 }
 
 `;
