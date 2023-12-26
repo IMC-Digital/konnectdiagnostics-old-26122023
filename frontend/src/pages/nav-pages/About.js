@@ -18,7 +18,7 @@ const About = () => {
       </div>
       <div className="sec-1 container flex flex-r">
         <div className="sec-left ">
-          <h3 className="paraH3 hdng2">We Care About Your Health</h3>
+          <h3 className="paraH3 hdng2">We Care About Your Health -</h3>
           <div className="para-section flex">
             <p className="para">
               Konnect Diagnostics started in October 2019 with one center in
